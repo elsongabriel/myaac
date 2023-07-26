@@ -20,5 +20,3 @@ interface IOTS_DB
 }
 
 /**#@-*/
-
-?>

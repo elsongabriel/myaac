@@ -79,5 +79,3 @@ function fieldExist($field, $table)
     global $db;
     return $db->hasColumn($table, $field);
 }
-
-?>

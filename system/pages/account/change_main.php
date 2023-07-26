@@ -61,7 +61,7 @@ if (!$main_changed) {
     }
     $twig->display('account.change_main.html.twig', array(
         'players' => $account_players,
-        'coins'   => $coins,
-        'color'   => $coins >= $needCoins ? 'green' : 'red'
+        'coins' => $coins,
+        'color' => $coins >= $needCoins ? 'green' : 'red'
     ));
 }

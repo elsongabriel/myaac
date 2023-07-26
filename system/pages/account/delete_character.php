@@ -81,4 +81,3 @@ if ($show_form) {
     }
     $twig->display('account.delete_character.html.twig');
 }
-?>

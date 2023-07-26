@@ -11,49 +11,47 @@
 
 /**
  * OTServ player ban.
- * 
+ *
  * @package POT
  * @version 0.1.5
  * @since 0.1.5
  */
 class OTS_PlayerBan extends OTS_Ban
 {
-/**
- * Ban data.
- * 
- * @var array
- * @version 0.1.5
- * @since 0.1.5
- */
+    /**
+     * Ban data.
+     *
+     * @var array
+     * @version 0.1.5
+     * @since 0.1.5
+     */
     private $data = array('type' => POT::BAN_PLAYER, 'param' => 0, 'active' => true, 'admin_id' => 0, 'comment' => '', 'reason' => 0);
 
-/**
- * Loads player ban with given id.
- * 
- * @version 0.1.5
- * @since 0.1.5
- * @param int $id Ban ID.
- * @throws PDOException On PDO operation error.
- */
+    /**
+     * Loads player ban with given id.
+     *
+     * @param int $id Ban ID.
+     * @throws PDOException On PDO operation error.
+     * @version 0.1.5
+     * @since 0.1.5
+     */
     public function load($id)
     {
         // SELECT query on database
-        $this->data = $this->db->query('SELECT ' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('type') . ', ' . $this->db->fieldName('value') . ', ' . $this->db->fieldName('param') . ', ' . $this->db->fieldName('active') . ', ' . $this->db->fieldName('expires') . ', ' . $this->db->fieldName('added') . ', ' . $this->db->fieldName('admin_id') . ', ' . $this->db->fieldName('comment') . ', ' . $this->db->fieldName('reason') . ' FROM ' . $this->db->tableName('bans') . ' WHERE ' . $this->db->fieldName('type') . ' = ' . POT::BAN_PLAYER . ' AND ' . $this->db->fieldName('id') . ' = ' . (int) $id)->fetch();
+        $this->data = $this->db->query('SELECT ' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('type') . ', ' . $this->db->fieldName('value') . ', ' . $this->db->fieldName('param') . ', ' . $this->db->fieldName('active') . ', ' . $this->db->fieldName('expires') . ', ' . $this->db->fieldName('added') . ', ' . $this->db->fieldName('admin_id') . ', ' . $this->db->fieldName('comment') . ', ' . $this->db->fieldName('reason') . ' FROM ' . $this->db->tableName('bans') . ' WHERE ' . $this->db->fieldName('type') . ' = ' . POT::BAN_PLAYER . ' AND ' . $this->db->fieldName('id') . ' = ' . (int)$id)->fetch();
     }
 
-/**
- * Loads player ban by banned player ID.
- * 
- * @version 0.1.5
- * @since 0.1.5
- * @param int $id Players's ID.
- * @throws PDOException On PDO operation error.
- */
+    /**
+     * Loads player ban by banned player ID.
+     *
+     * @param int $id Players's ID.
+     * @throws PDOException On PDO operation error.
+     * @version 0.1.5
+     * @since 0.1.5
+     */
     public function find($id)
     {
         // SELECT query on database
-        $this->data = $this->db->query('SELECT ' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('type') . ', ' . $this->db->fieldName('value') . ', ' . $this->db->fieldName('param') . ', ' . $this->db->fieldName('active') . ', ' . $this->db->fieldName('expires') . ', ' . $this->db->fieldName('added') . ', ' . $this->db->fieldName('admin_id') . ', ' . $this->db->fieldName('comment') . ', ' . $this->db->fieldName('reason') . ' FROM ' . $this->db->tableName('bans') . ' WHERE ' . $this->db->fieldName('type') . ' = ' . POT::BAN_PLAYER . ' AND ' . $this->db->fieldName('value') . ' = ' . (int) $id)->fetch();
+        $this->data = $this->db->query('SELECT ' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('type') . ', ' . $this->db->fieldName('value') . ', ' . $this->db->fieldName('param') . ', ' . $this->db->fieldName('active') . ', ' . $this->db->fieldName('expires') . ', ' . $this->db->fieldName('added') . ', ' . $this->db->fieldName('admin_id') . ', ' . $this->db->fieldName('comment') . ', ' . $this->db->fieldName('reason') . ' FROM ' . $this->db->tableName('bans') . ' WHERE ' . $this->db->fieldName('type') . ' = ' . POT::BAN_PLAYER . ' AND ' . $this->db->fieldName('value') . ' = ' . (int)$id)->fetch();
     }
 }
-
-?>

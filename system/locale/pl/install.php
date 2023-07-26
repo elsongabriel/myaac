@@ -119,4 +119,3 @@ $locale['step_finish_title'] = 'Instalacja zakończona!';
 $locale['step_finish_desc'] = 'Gratulacje! <b>MyAAC</b> jest gotowy do użycia!<br/>Możesz się teraz zalogować do $ADMIN_PANEL$, albo odwiedzić $HOMEPAGE$.<br/><br/>
 <span style="color: red">Proszę usunąć katalog <b>install/</b>.</span><br/><br/>
 Wrzuć błędy i sugestie na $LINK$, dzięki!';
-?>

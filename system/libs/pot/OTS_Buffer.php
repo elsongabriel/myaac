@@ -15,15 +15,15 @@
 
 /**
  * Binary buffer container.
- * 
+ *
  * <p>
  * This is generic class for classes that uses buffer-baser read-write operations (it can also emulate C-like pointers).
  * <p>
- * 
+ *
  * <p>
  * Note that unlike <var>NetworkMessage</var> class from OTServ C++ source code, in this one reading and writing positions are separated so you can pararelly read and write it's content like for example using object of this class as stack.
  * </p>
- * 
+ *
  * @package POT
  * @version 0.1.3
  * @property string $buffer Properties binary string.
@@ -39,20 +39,20 @@ class OTS_Buffer
 {
 /**
  * Node properties stream.
- * 
+ *
  * @var string
  */
     protected $buffer;
 /**
  * Properties stream pointer.
- * 
+ *
  * @var int
  */
     protected $pos;
 
 /**
  * Initializes new buffered reader.
- * 
+ *
  * @param string $buffer Buffer content.
  */
     public function __construct($buffer = '')
@@ -63,11 +63,11 @@ class OTS_Buffer
 
 /**
  * Magic PHP5 method.
- * 
+ *
  * <p>
  * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
  * </p>
- * 
+ *
  * @param array $properties List of object properties.
  */
     public static function __set_state($properties)
@@ -85,7 +85,7 @@ class OTS_Buffer
 
 /**
  * Returs properties stream.
- * 
+ *
  * @return string Properties stream.
  */
     public function getBuffer()
@@ -95,7 +95,7 @@ class OTS_Buffer
 
 /**
  * Sets properties stream.
- * 
+ *
  * @param string Properties stream.
  */
     public function setBuffer($buffer)
@@ -106,7 +106,7 @@ class OTS_Buffer
 
 /**
  * Checks if there is anything left in stream.
- * 
+ *
  * @return bool False if pointer is at the end of stream.
  */
     public function isValid()
@@ -116,7 +116,7 @@ class OTS_Buffer
 
 /**
  * Checks stream end state.
- * 
+ *
  * @param int $size Amount of bytes that are going to be read.
  * @throws E_OTS_OutOfBuffer When there is read attemp after end of stream.
  */
@@ -130,7 +130,7 @@ class OTS_Buffer
 
 /**
  * Returns single byte.
- * 
+ *
  * @return int Byte (char) value.
  * @throws E_OTS_OutOfBuffer When there is read attemp after end of stream.
  */
@@ -146,7 +146,7 @@ class OTS_Buffer
 
 /**
  * Appends single byte to buffer.
- * 
+ *
  * @param int $char Byte (char) value.
  */
     public function putChar($char)
@@ -156,7 +156,7 @@ class OTS_Buffer
 
 /**
  * Returns double byte.
- * 
+ *
  * @return int Word (short) value.
  * @throws E_OTS_OutOfBuffer When there is read attemp after end of stream.
  */
@@ -172,7 +172,7 @@ class OTS_Buffer
 
 /**
  * Appends double byte to buffer.
- * 
+ *
  * @param int $short Word (short) value.
  */
     public function putShort($short)
@@ -182,7 +182,7 @@ class OTS_Buffer
 
 /**
  * Returns quater byte.
- * 
+ *
  * @return int Double word (long) value.
  * @throws E_OTS_OutOfBuffer When there is read attemp after end of stream.
  */
@@ -198,7 +198,7 @@ class OTS_Buffer
 
 /**
  * Appends quater byte to buffer.
- * 
+ *
  * @param int $long Double word (long) value.
  */
     public function putLong($long)
@@ -208,11 +208,11 @@ class OTS_Buffer
 
 /**
  * Returns string from buffer.
- * 
+ *
  * <p>
  * If length is not given then treats first short value from current buffer as string length.
  * </p>
- * 
+ *
  * @param int|bool $length String length.
  * @return string First substring.
  * @throws E_OTS_OutOfBuffer When there is read attemp after end of stream.
@@ -236,7 +236,7 @@ class OTS_Buffer
 
 /**
  * Appends string to buffer.
- * 
+ *
  * @param string $string Binary length.
  * @param bool $dynamic Whether if string length is fixed or not (if it is dynamic then length will be inserted as short before string chunk).
  */
@@ -261,7 +261,7 @@ class OTS_Buffer
 
 /**
  * Returns current read position.
- * 
+ *
  * @return int Read position.
  */
     public function getPos()
@@ -271,7 +271,7 @@ class OTS_Buffer
 
 /**
  * Seeks current reading position.
- * 
+ *
  * @param int $pos Read position.
  */
     public function setPos($pos)
@@ -281,7 +281,7 @@ class OTS_Buffer
 
 /**
  * Returns buffer size.
- * 
+ *
  * @return int Buffer length.
  */
     public function getSize()
@@ -291,7 +291,7 @@ class OTS_Buffer
 
 /**
  * Skips given amount of bytes.
- * 
+ *
  * @param int $n Bytes to skip.
  * @throws E_OTS_OutOfBuffer When there is read attemp after end of stream.
  */
@@ -303,7 +303,7 @@ class OTS_Buffer
 
 /**
  * Magic PHP5 method.
- * 
+ *
  * @param string $name Property name.
  * @return mixed Property value.
  * @throws OutOfBoundsException For non-supported properties.
@@ -352,7 +352,7 @@ class OTS_Buffer
 
 /**
  * Magic PHP5 method.
- * 
+ *
  * @version 0.1.3
  * @param string $name Property name.
  * @param mixed $value Property value.
@@ -399,7 +399,7 @@ class OTS_Buffer
 
 /**
  * Returns string representation of buffer object.
- * 
+ *
  * @return string Object's buffer.
  */
     public function __toString()
@@ -417,5 +417,3 @@ class OTS_Buffer
 }
 
 /**#@-*/
-
-?>

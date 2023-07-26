@@ -14,7 +14,7 @@
 
 /**
  * Occurs when in database item which is not a container contains sub-items.
- * 
+ *
  * @package POT
  */
 class E_OTS_NotAContainer extends Exception
@@ -22,5 +22,3 @@ class E_OTS_NotAContainer extends Exception
 }
 
 /**#@-*/
-
-?>

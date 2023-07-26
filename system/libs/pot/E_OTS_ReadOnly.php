@@ -14,7 +14,7 @@
 
 /**
  * Occurs when code attempts to evaluate write operation on read-only object.
- * 
+ *
  * @package POT
  */
 class E_OTS_ReadOnly extends Exception
@@ -22,5 +22,3 @@ class E_OTS_ReadOnly extends Exception
 }
 
 /**#@-*/
-
-?>

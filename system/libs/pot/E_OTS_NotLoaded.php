@@ -14,7 +14,7 @@
 
 /**
  * Occurs when code attempts to access property of not loaded object.
- * 
+ *
  * @package POT
  */
 class E_OTS_NotLoaded extends Exception
@@ -22,5 +22,3 @@ class E_OTS_NotLoaded extends Exception
 }
 
 /**#@-*/
-
-?>

@@ -15,8 +15,7 @@ $guilds_list = new OTS_Guilds_List();
 $guilds_list->orderBy("name");
 
 $guilds = array();
-if(count($guilds_list) > 0)
-{
+if (count($guilds_list) > 0) {
     foreach ($guilds_list as $guild) {
         $guild_logo = $guild->getCustomField('logo_name');
         if (empty($guild_logo) || !file_exists('images/guilds/' . $guild_logo))

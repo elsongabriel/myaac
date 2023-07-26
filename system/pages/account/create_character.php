@@ -18,24 +18,24 @@ $character_town = isset($_POST['town']) ? (int)$_POST['town'] : null;
 $character_created = false;
 $save = isset($_POST['save']) && $_POST['save'] == 1;
 $errors = array();
-if($save) {
-	require_once LIBS . 'CreateCharacter.php';
-	$createCharacter = new CreateCharacter();
+if ($save) {
+    require_once LIBS . 'CreateCharacter.php';
+    $createCharacter = new CreateCharacter();
 
-	$character_created = $createCharacter->doCreate($character_name, $character_sex, $character_vocation, $character_town, $account_logged, $errors);
+    $character_created = $createCharacter->doCreate($character_name, $character_sex, $character_vocation, $character_town, $account_logged, $errors);
 }
 
-if(count($errors) > 0) {
-	$twig->display('error_box.html.twig', array('errors' => $errors));
+if (count($errors) > 0) {
+    $twig->display('error_box.html.twig', array('errors' => $errors));
 }
 
-if(!$character_created) {
-	$twig->display('account.create_character.html.twig', array(
-		'name' => $character_name,
-		'sex' => $character_sex,
-		'vocation' => $character_vocation,
-		'town' => $character_town,
-		'save' => $save,
-		'errors' => $errors
-	));
+if (!$character_created) {
+    $twig->display('account.create_character.html.twig', array(
+        'name' => $character_name,
+        'sex' => $character_sex,
+        'vocation' => $character_vocation,
+        'town' => $character_town,
+        'save' => $save,
+        'errors' => $errors
+    ));
 }

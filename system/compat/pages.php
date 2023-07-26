@@ -44,4 +44,3 @@ switch ($page) {
     default:
         break;
 }
-?>

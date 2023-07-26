@@ -7,7 +7,7 @@
 
 /**
  * Code in this file bases on oryginal OTServ binary format loading C++ code (fileloader.h, fileloader.cpp).
- * 
+ *
  * @package POT
  * @version 0.1.2
  * @author Wrzasq <wrzasq@gmail.com>
@@ -17,11 +17,11 @@
 
 /**
  * OTServ binary file node representation.
- * 
+ *
  * <p>
  * This file extends {@link OTS_Buffer OTS_Buffer class} for nodes tree logic with siblings and childs.
  * </p>
- * 
+ *
  * @package POT
  * @version 0.1.2
  * @property OTS_FileNode $next Next sibling node.
@@ -30,120 +30,117 @@
  */
 class OTS_FileNode extends OTS_Buffer
 {
-/**
- * Next sibling node.
- * 
- * @var OTS_FileNode
- */
+    /**
+     * Next sibling node.
+     *
+     * @var OTS_FileNode
+     */
     private $next;
-/**
- * First child node.
- * 
- * @var OTS_FileNode
- */
+    /**
+     * First child node.
+     *
+     * @var OTS_FileNode
+     */
     private $child;
-/**
- * Node type.
- * 
- * @var int
- */
+    /**
+     * Node type.
+     *
+     * @var int
+     */
     private $type;
 
-/**
- * Creates clone of object.
- * 
- * <p>
- * Creates complete tree copy by copying sibling and child nodes.
- * </p>
- */
+    /**
+     * Creates clone of object.
+     *
+     * <p>
+     * Creates complete tree copy by copying sibling and child nodes.
+     * </p>
+     */
     public function __clone()
     {
         // clones conencted nodes
-        if( isset($this->child) )
-        {
+        if (isset($this->child)) {
             $this->child = clone $this->child;
         }
 
-        if( isset($this->next) )
-        {
+        if (isset($this->next)) {
             $this->next = clone $this->next;
         }
     }
 
-/**
- * Returs next sibling.
- * 
- * @return OTS_FileNode Sibling node.
- */
+    /**
+     * Returs next sibling.
+     *
+     * @return OTS_FileNode Sibling node.
+     */
     public function getNext()
     {
         return $this->next;
     }
 
-/**
- * Sets next sibling.
- * 
- * @param OTS_FileNode Sibling node.
- */
+    /**
+     * Sets next sibling.
+     *
+     * @param OTS_FileNode Sibling node.
+     */
     public function setNext(OTS_FileNode $next)
     {
         $this->next = $next;
     }
 
-/**
- * Returs first child.
- * 
- * @return OTS_FileNode Child node.
- */
+    /**
+     * Returs first child.
+     *
+     * @return OTS_FileNode Child node.
+     */
     public function getChild()
     {
         return $this->child;
     }
 
-/**
- * Sets first child.
- * 
- * @param OTS_FileNode Child node.
- */
+    /**
+     * Sets first child.
+     *
+     * @param OTS_FileNode Child node.
+     */
     public function setChild(OTS_FileNode $child)
     {
         $this->child = $child;
     }
 
-/**
- * Returs node type.
- * 
- * @return int Node type.
- */
+    /**
+     * Returs node type.
+     *
+     * @return int Node type.
+     */
     public function getType()
     {
         return $this->type;
     }
 
-/**
- * Sets node type.
- * 
- * @param int Node type.
- */
+    /**
+     * Sets node type.
+     *
+     * @param int Node type.
+     */
     public function setType($type)
     {
         $this->type = $type;
     }
 
-/**
- * Magic PHP5 method.
- * 
- * @version 0.1.2
- * @since 0.1.0
- * @param string $name Property name.
- * @return mixed Property value.
- * @throws OutOfBoundsException For non-supported properties.
- * @throws E_OTS_OutOfBuffer When there is read attemp after end of stream.
- */
+    /**
+     * Magic PHP5 method.
+     *
+     * @param string $name Property name.
+     * @return mixed Property value.
+     * @throws OutOfBoundsException For non-supported properties.
+     * @throws E_OTS_OutOfBuffer When there is read attemp after end of stream.
+     * @version 0.1.2
+     * @since 0.1.0
+     */
     public function __get($name)
     {
-        switch($name)
-        {
+        switch ($name) {
             // simple properties
             case 'next':
             case 'child':
@@ -155,19 +152,18 @@ class OTS_FileNode extends OTS_Buffer
         }
     }
 
-/**
- * Magic PHP5 method.
- * 
- * @version 0.1.2
- * @since 0.1.0
- * @param string $name Property name.
- * @param mixed $value Property value.
- * @throws OutOfBoundsException For non-supported properties.
- */
+    /**
+     * Magic PHP5 method.
+     *
+     * @param string $name Property name.
+     * @param mixed $value Property value.
+     * @throws OutOfBoundsException For non-supported properties.
+     * @since 0.1.0
+     * @version 0.1.2
+     */
     public function __set($name, $value)
     {
-        switch($name)
-        {
+        switch ($name) {
             // simple properties
             case 'next':
             case 'child':
@@ -182,5 +178,3 @@ class OTS_FileNode extends OTS_Buffer
 }
 
 /**#@-*/
-
-?>

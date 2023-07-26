@@ -11,8 +11,8 @@ defined('MYAAC') or die('Direct access not allowed!');
 $title = 'MyAAC Changelog';
 
 if (!file_exists(BASE . 'CHANGELOG.md')) {
-	echo 'File CHANGELOG.md doesn\'t exist.';
-	return;
+    echo 'File CHANGELOG.md doesn\'t exist.';
+    return;
 }
 
 require LIBS . 'Parsedown.php';

@@ -28,100 +28,95 @@
  */
 abstract class OTS_Ban extends OTS_Row_DAO
 {
-/**
- * Ban data.
- *
- * @var array
- * @version 0.1.5
- * @since 0.1.5
- */
+    /**
+     * Ban data.
+     *
+     * @var array
+     * @version 0.1.5
+     * @since 0.1.5
+     */
     private $data = array('param' => 0, 'active' => true, 'admin_id' => 0, 'comment' => '', 'reason' => 0);
 
-/**
- * Loads ban with given id.
- *
- * @version 0.1.5
- * @since 0.1.5
- * @param int $id Ban ID.
- * @throws PDOException On PDO operation error.
- */
+    /**
+     * Loads ban with given id.
+     *
+     * @param int $id Ban ID.
+     * @throws PDOException On PDO operation error.
+     * @version 0.1.5
+     * @since 0.1.5
+     */
     public function load($id)
     {
         // SELECT query on database
-        $this->data = $this->db->query('SELECT ' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('type') . ', ' . $this->db->fieldName('value') . ', ' . $this->db->fieldName('param') . ', ' . $this->db->fieldName('active') . ', ' . $this->db->fieldName('expires') . ', ' . $this->db->fieldName('added') . ', ' . $this->db->fieldName('admin_id') . ', ' . $this->db->fieldName('comment') . ', ' . $this->db->fieldName('reason') . ' FROM ' . $this->db->tableName('bans') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . (int) $id)->fetch();
+        $this->data = $this->db->query('SELECT ' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('type') . ', ' . $this->db->fieldName('value') . ', ' . $this->db->fieldName('param') . ', ' . $this->db->fieldName('active') . ', ' . $this->db->fieldName('expires') . ', ' . $this->db->fieldName('added') . ', ' . $this->db->fieldName('admin_id') . ', ' . $this->db->fieldName('comment') . ', ' . $this->db->fieldName('reason') . ' FROM ' . $this->db->tableName('bans') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . (int)$id)->fetch();
     }
 
-/**
- * Checks if object is loaded.
- *
- * @version 0.1.5
- * @since 0.1.5
- * @return bool Load state.
- */
+    /**
+     * Checks if object is loaded.
+     *
+     * @return bool Load state.
+     * @since 0.1.5
+     * @version 0.1.5
+     */
     public function isLoaded()
     {
         return isset($this->data['id']);
     }
 
-/**
- * Saves ban in database.
- *
- * <p>
- * If object is not loaded to represent any existing ban it will create new row for it.
- * </p>
- *
- * @version 0.1.5
- * @since 0.1.5
- * @throws PDOException On PDO operation error.
- */
+    /**
+     * Saves ban in database.
+     *
+     * <p>
+     * If object is not loaded to represent any existing ban it will create new row for it.
+     * </p>
+     *
+     * @throws PDOException On PDO operation error.
+     * @since 0.1.5
+     * @version 0.1.5
+     */
     public function save()
     {
         // updates existing ban
-        if( isset($this->data['id']) )
-        {
+        if (isset($this->data['id'])) {
             // UPDATE query on database
-            $this->db->exec('UPDATE ' . $this->db->tableName('bans') . ' SET ' . $this->db->fieldName('type') . ' = ' . $this->data['type'] . ', ' . $this->db->fieldName('value') . ' = ' . $this->data['value'] . ', ' . $this->db->fieldName('param') . ' = ' . $this->data['param'] . ', ' . $this->db->fieldName('active') . ' = ' . (int) $this->data['active'] . ', ' . $this->db->fieldName('expires') . ' = ' . $this->data['expires'] . ', ' . $this->db->fieldName('added') . ' = ' . $this->data['added'] . ', ' . $this->db->fieldName('admin_id') . ' = ' . $this->data['admin_id'] . ', ' . $this->db->fieldName('comment') . ' = ' . $this->db->quote($this->data['comment']) . ', ' . $this->db->fieldName('reason') . ' = ' . $this->data['reason'] . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
-        }
-        // creates new ban
-        else
-        {
+            $this->db->exec('UPDATE ' . $this->db->tableName('bans') . ' SET ' . $this->db->fieldName('type') . ' = ' . $this->data['type'] . ', ' . $this->db->fieldName('value') . ' = ' . $this->data['value'] . ', ' . $this->db->fieldName('param') . ' = ' . $this->data['param'] . ', ' . $this->db->fieldName('active') . ' = ' . (int)$this->data['active'] . ', ' . $this->db->fieldName('expires') . ' = ' . $this->data['expires'] . ', ' . $this->db->fieldName('added') . ' = ' . $this->data['added'] . ', ' . $this->db->fieldName('admin_id') . ' = ' . $this->data['admin_id'] . ', ' . $this->db->fieldName('comment') . ' = ' . $this->db->quote($this->data['comment']) . ', ' . $this->db->fieldName('reason') . ' = ' . $this->data['reason'] . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
+        } // creates new ban
+        else {
             // INSERT query on database
-            $this->db->exec('INSERT INTO ' . $this->db->tableName('bans') . ' (' . $this->db->fieldName('type') . ', ' . $this->db->fieldName('value') . ', ' . $this->db->fieldName('param') . ', ' . $this->db->fieldName('active') . ', ' . $this->db->fieldName('expires') . ', ' . $this->db->fieldName('added') . ', ' . $this->db->fieldName('admin_id') . ', ' . $this->db->fieldName('comment') . ', ' . $this->db->fieldName('reason') . ') VALUES (' . $this->data['type'] . ', ' . $this->data['value'] . ', ' . $this->data['param'] . ', ' . (int) $this->data['active'] . ', ' . $this->data['expires'] . ', ' . $this->data['added'] . ', ' . $this->data['admin_id'] . ', ' . $this->db->quote($this->data['comment']) . ', ' . $this->data['reason'] . ')');
+            $this->db->exec('INSERT INTO ' . $this->db->tableName('bans') . ' (' . $this->db->fieldName('type') . ', ' . $this->db->fieldName('value') . ', ' . $this->db->fieldName('param') . ', ' . $this->db->fieldName('active') . ', ' . $this->db->fieldName('expires') . ', ' . $this->db->fieldName('added') . ', ' . $this->db->fieldName('admin_id') . ', ' . $this->db->fieldName('comment') . ', ' . $this->db->fieldName('reason') . ') VALUES (' . $this->data['type'] . ', ' . $this->data['value'] . ', ' . $this->data['param'] . ', ' . (int)$this->data['active'] . ', ' . $this->data['expires'] . ', ' . $this->data['added'] . ', ' . $this->data['admin_id'] . ', ' . $this->db->quote($this->data['comment']) . ', ' . $this->data['reason'] . ')');
             // ID of new ban
             $this->data['id'] = $this->db->lastInsertId();
         }
     }
 
-/**
- * Ban ID.
- *
- * @version 0.1.5
- * @since 0.1.5
- * @return int Ban ID.
- * @throws E_OTS_NotLoaded If ban is not loaded.
- */
+    /**
+     * Ban ID.
+     *
+     * @return int Ban ID.
+     * @throws E_OTS_NotLoaded If ban is not loaded.
+     * @version 0.1.5
+     * @since 0.1.5
+     */
     public function getId()
     {
-        if( !isset($this->data['id']) )
-        {
+        if (!isset($this->data['id'])) {
             throw new E_OTS_NotLoaded();
         }
 
         return $this->data['id'];
     }
 
-/**
- * Deletes ban.
- *
- * @version 0.1.5
- * @since 0.1.5
- * @throws E_OTS_NotLoaded If ban is not loaded.
- * @throws PDOException On PDO operation error.
- */
+    /**
+     * Deletes ban.
+     *
+     * @throws E_OTS_NotLoaded If ban is not loaded.
+     * @throws PDOException On PDO operation error.
+     * @version 0.1.5
+     * @since 0.1.5
+     */
     public function delete()
     {
-        if( !isset($this->data['id']) )
-        {
+        if (!isset($this->data['id'])) {
             throw new E_OTS_NotLoaded();
         }
 
@@ -132,314 +127,305 @@ abstract class OTS_Ban extends OTS_Row_DAO
         unset($this->data['id']);
     }
 
-/**
- * Banned target.
- *
- * @version 0.1.5
- * @since 0.1.5
- * @return int Target identifier.
- * @throws E_OTS_NotLoaded If ban is not loaded.
- */
+    /**
+     * Banned target.
+     *
+     * @return int Target identifier.
+     * @throws E_OTS_NotLoaded If ban is not loaded.
+     * @version 0.1.5
+     * @since 0.1.5
+     */
     public function getValue()
     {
-        if( !isset($this->data['value']) )
-        {
+        if (!isset($this->data['value'])) {
             throw new E_OTS_NotLoaded();
         }
 
         return $this->data['value'];
     }
 
-/**
- * Sets banned target.
- *
- * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
- * </p>
- *
- * @version 0.1.5
- * @since 0.1.5
- * @param int $value Banned target identifier.
- */
+    /**
+     * Sets banned target.
+     *
+     * <p>
+     * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
+     * </p>
+     *
+     * @param int $value Banned target identifier.
+     * @since 0.1.5
+     * @version 0.1.5
+     */
     public function setValue($value)
     {
-        $this->data['value'] = (int) $value;
+        $this->data['value'] = (int)$value;
     }
 
-/**
- * Additional parameter.
- *
- * @version 0.1.5
- * @since 0.1.5
- * @return int Parameter value (usualy used as IP mask).
- * @throws E_OTS_NotLoaded If ban is not loaded.
- */
+    /**
+     * Additional parameter.
+     *
+     * @return int Parameter value (usualy used as IP mask).
+     * @throws E_OTS_NotLoaded If ban is not loaded.
+     * @version 0.1.5
+     * @since 0.1.5
+     */
     public function getParam()
     {
-        if( !isset($this->data['param']) )
-        {
+        if (!isset($this->data['param'])) {
             throw new E_OTS_NotLoaded();
         }
 
         return $this->data['param'];
     }
 
-/**
- * Sets additional parameter.
- *
- * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
- * </p>
- *
- * @version 0.1.5
- * @since 0.1.5
- * @param int $param Parameter value (usualy used as IP mask).
- */
+    /**
+     * Sets additional parameter.
+     *
+     * <p>
+     * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
+     * </p>
+     *
+     * @param int $param Parameter value (usualy used as IP mask).
+     * @since 0.1.5
+     * @version 0.1.5
+     */
     public function setParam($param)
     {
-        $this->data['param'] = (int) $param;
+        $this->data['param'] = (int)$param;
     }
 
-/**
- * Activation state.
- *
- * @version 0.1.5
- * @since 0.1.5
- * @return bool Is ban active.
- * @throws E_OTS_NotLoaded If ban is not loaded.
- */
+    /**
+     * Activation state.
+     *
+     * @return bool Is ban active.
+     * @throws E_OTS_NotLoaded If ban is not loaded.
+     * @version 0.1.5
+     * @since 0.1.5
+     */
     public function isActive()
     {
-        if( !isset($this->data['active']) )
-        {
+        if (!isset($this->data['active'])) {
             throw new E_OTS_NotLoaded();
         }
 
         return $this->data['active'];
     }
 
-/**
- * Activates ban.
- *
- * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
- * </p>
- *
- * @version 0.1.5
- * @since 0.1.5
- */
+    /**
+     * Activates ban.
+     *
+     * <p>
+     * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
+     * </p>
+     *
+     * @version 0.1.5
+     * @since 0.1.5
+     */
     public function activate()
     {
         $this->data['active'] = true;
     }
 
-/**
- * Deactivates ban.
- *
- * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
- * </p>
- *
- * @version 0.1.5
- * @since 0.1.5
- */
+    /**
+     * Deactivates ban.
+     *
+     * <p>
+     * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
+     * </p>
+     *
+     * @version 0.1.5
+     * @since 0.1.5
+     */
     public function deactivate()
     {
         $this->data['active'] = false;
     }
 
-/**
- * Expiration time.
- *
- * @version 0.1.5
- * @since 0.1.5
- * @return int Ban expiration time (0 - forever).
- * @throws E_OTS_NotLoaded If ban is not loaded.
- */
+    /**
+     * Expiration time.
+     *
+     * @return int Ban expiration time (0 - forever).
+     * @throws E_OTS_NotLoaded If ban is not loaded.
+     * @version 0.1.5
+     * @since 0.1.5
+     */
     public function getExpires()
     {
-        if( !isset($this->data['expires']) )
-        {
+        if (!isset($this->data['expires'])) {
             throw new E_OTS_NotLoaded();
         }
 
         return $this->data['expires'];
     }
 
-/**
- * Sets expiration time.
- *
- * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
- * </p>
- *
- * @version 0.1.5
- * @since 0.1.5
- * @param int $expires Ban expiration time (0 - forever).
- */
+    /**
+     * Sets expiration time.
+     *
+     * <p>
+     * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
+     * </p>
+     *
+     * @param int $expires Ban expiration time (0 - forever).
+     * @since 0.1.5
+     * @version 0.1.5
+     */
     public function setExpires($expires)
     {
-        $this->data['expires'] = (int) $expires;
+        $this->data['expires'] = (int)$expires;
     }
 
-/**
- * Banned time.
- *
- * @version 0.1.5
- * @since 0.1.5
- * @return int Ban creation time.
- * @throws E_OTS_NotLoaded If ban is not loaded.
- */
+    /**
+     * Banned time.
+     *
+     * @return int Ban creation time.
+     * @throws E_OTS_NotLoaded If ban is not loaded.
+     * @version 0.1.5
+     * @since 0.1.5
+     */
     public function getAdded()
     {
-        if( !isset($this->data['added']) )
-        {
+        if (!isset($this->data['added'])) {
             throw new E_OTS_NotLoaded();
         }
 
         return $this->data['added'];
     }
 
-/**
- * Sets banned time.
- *
- * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
- * </p>
- *
- * @version 0.1.5
- * @since 0.1.5
- * @param int $added Ban creation time.
- */
+    /**
+     * Sets banned time.
+     *
+     * <p>
+     * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
+     * </p>
+     *
+     * @param int $added Ban creation time.
+     * @since 0.1.5
+     * @version 0.1.5
+     */
     public function setAdded($added)
     {
-        $this->data['added'] = (int) $added;
+        $this->data['added'] = (int)$added;
     }
 
-/**
- * Ban creator.
- *
- * @version 0.1.5
- * @since 0.1.5
- * @return int ID of administrator who created ban entry.
- * @throws E_OTS_NotLoaded If ban is not loaded.
- */
+    /**
+     * Ban creator.
+     *
+     * @return int ID of administrator who created ban entry.
+     * @throws E_OTS_NotLoaded If ban is not loaded.
+     * @version 0.1.5
+     * @since 0.1.5
+     */
     public function getAdminId()
     {
-        if( !isset($this->data['admin_id']) )
-        {
+        if (!isset($this->data['admin_id'])) {
             throw new E_OTS_NotLoaded();
         }
 
         return $this->data['admin_id'];
     }
 
-/**
- * Sets ban creator.
- *
- * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
- * </p>
- *
- * @version 0.1.5
- * @since 0.1.5
- * @param int $adminId ID of administrator who created ban entry.
- */
+    /**
+     * Sets ban creator.
+     *
+     * <p>
+     * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
+     * </p>
+     *
+     * @param int $adminId ID of administrator who created ban entry.
+     * @since 0.1.5
+     * @version 0.1.5
+     */
     public function setAdminId($adminId)
     {
-        $this->data['admin_id'] = (int) $adminId;
+        $this->data['admin_id'] = (int)$adminId;
     }
 
-/**
- * Explaination comment.
- *
- * @version 0.1.5
- * @since 0.1.5
- * @return string Ban description.
- * @throws E_OTS_NotLoaded If ban is not loaded.
- */
+    /**
+     * Explaination comment.
+     *
+     * @return string Ban description.
+     * @throws E_OTS_NotLoaded If ban is not loaded.
+     * @version 0.1.5
+     * @since 0.1.5
+     */
     public function getComment()
     {
-        if( !isset($this->data['comment']) )
-        {
+        if (!isset($this->data['comment'])) {
             throw new E_OTS_NotLoaded();
         }
 
         return $this->data['comment'];
     }
 
-/**
- * Sets explaination comment.
- *
- * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
- * </p>
- *
- * @version 0.1.5
- * @since 0.1.5
- * @param string $comment Ban description.
- */
+    /**
+     * Sets explaination comment.
+     *
+     * <p>
+     * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
+     * </p>
+     *
+     * @param string $comment Ban description.
+     * @since 0.1.5
+     * @version 0.1.5
+     */
     public function setComment($comment)
     {
-        $this->data['comment'] = (string) $comment;
+        $this->data['comment'] = (string)$comment;
     }
 
-/**
- * Ban reason.
- *
- * @version 0.1.5
- * @since 0.1.5
- * @return int Reason for which ban was created.
- * @throws E_OTS_NotLoaded If ban is not loaded.
- */
+    /**
+     * Ban reason.
+     *
+     * @return int Reason for which ban was created.
+     * @throws E_OTS_NotLoaded If ban is not loaded.
+     * @version 0.1.5
+     * @since 0.1.5
+     */
     public function getReason()
     {
-        if( !isset($this->data['reason']) )
-        {
+        if (!isset($this->data['reason'])) {
             throw new E_OTS_NotLoaded();
         }
 
         return $this->data['reason'];
     }
 
-/**
- * Sets ban reason.
- *
- * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
- * </p>
- *
- * @version 0.1.5
- * @since 0.1.5
- * @param int $reason Reason for which ban was created.
- */
+    /**
+     * Sets ban reason.
+     *
+     * <p>
+     * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
+     * </p>
+     *
+     * @param int $reason Reason for which ban was created.
+     * @since 0.1.5
+     * @version 0.1.5
+     */
     public function setReason($reason)
     {
-        $this->data['reason'] = (int) $reason;
+        $this->data['reason'] = (int)$reason;
     }
 
-/**
- * Reads custom field.
- *
- * <p>
- * Reads field by it's name. Can read any field of given record that exists in database.
- * </p>
- *
- * <p>
- * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
- * </p>
- *
- * @version 0.1.5
- * @since 0.1.5
- * @param string $field Field name.
- * @return string Field value.
- * @throws E_OTS_NotLoaded If ban is not loaded.
- * @throws PDOException On PDO operation error.
- */
+    /**
+     * Reads custom field.
+     *
+     * <p>
+     * Reads field by it's name. Can read any field of given record that exists in database.
+     * </p>
+     *
+     * <p>
+     * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
+     * </p>
+     *
+     * @param string $field Field name.
+     * @return string Field value.
+     * @throws E_OTS_NotLoaded If ban is not loaded.
+     * @throws PDOException On PDO operation error.
+     * @version 0.1.5
+     * @since 0.1.5
+     */
     public function getCustomField($field)
     {
-        if( !isset($this->data['id']) )
-        {
+        if (!isset($this->data['id'])) {
             throw new E_OTS_NotLoaded();
         }
 
@@ -447,59 +433,56 @@ abstract class OTS_Ban extends OTS_Row_DAO
         return $value[$field];
     }
 
-/**
- * Writes custom field.
- *
- * <p>
- * Write field by it's name. Can write any field of given record that exists in database.
- * </p>
- *
- * <p>
- * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
- * </p>
- *
- * <p>
- * Note: Make sure that you pass $value argument of correct type. This method determinates whether to quote field name. It is safe - it makes you sure that no unproper queries that could lead to SQL injection will be executed, but it can make your code working wrong way. For example: $object->setCustomField('foo', '1'); will quote 1 as as string ('1') instead of passing it as a integer.
- * </p>
- *
- * @version 0.1.5
- * @since 0.1.5
- * @param string $field Field name.
- * @param mixed $value Field value.
- * @throws E_OTS_NotLoaded If account is not loaded.
- * @throws PDOException On PDO operation error.
- */
+    /**
+     * Writes custom field.
+     *
+     * <p>
+     * Write field by it's name. Can write any field of given record that exists in database.
+     * </p>
+     *
+     * <p>
+     * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
+     * </p>
+     *
+     * <p>
+     * Note: Make sure that you pass $value argument of correct type. This method determinates whether to quote field name. It is safe - it makes you sure that no unproper queries that could lead to SQL injection will be executed, but it can make your code working wrong way. For example: $object->setCustomField('foo', '1'); will quote 1 as as string ('1') instead of passing it as a integer.
+     * </p>
+     *
+     * @param string $field Field name.
+     * @param mixed $value Field value.
+     * @throws E_OTS_NotLoaded If account is not loaded.
+     * @throws PDOException On PDO operation error.
+     * @version 0.1.5
+     * @since 0.1.5
+     */
     public function setCustomField($field, $value)
     {
-        if( !isset($this->data['id']) )
-        {
+        if (!isset($this->data['id'])) {
             throw new E_OTS_NotLoaded();
         }
 
         // quotes value for SQL query
-        if(!( is_int($value) || is_float($value) ))
-        {
+        if (!(is_int($value) || is_float($value))) {
             $value = $this->db->quote($value);
         }
 
         $this->db->exec('UPDATE ' . $this->db->tableName('bans') . ' SET ' . $this->db->fieldName($field) . ' = ' . $value . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
     }
 
-/**
- * Magic PHP5 method.
- *
- * @version 0.1.5
- * @since 0.1.5
- * @param string $name Property name.
- * @return mixed Property value.
- * @throws E_OTS_NotLoaded If ban is not loaded.
- * @throws OutOfBoundsException For non-supported properties.
- * @throws PDOException On PDO operation error.
- */
+    /**
+     * Magic PHP5 method.
+     *
+     * @param string $name Property name.
+     * @return mixed Property value.
+     * @throws E_OTS_NotLoaded If ban is not loaded.
+     * @throws OutOfBoundsException For non-supported properties.
+     * @throws PDOException On PDO operation error.
+     * @since 0.1.5
+     * @version 0.1.5
+     */
     public function __get($name)
     {
-        switch($name)
-        {
+        switch ($name) {
             case 'loaded':
                 return $this->isLoaded();
 
@@ -535,20 +518,19 @@ abstract class OTS_Ban extends OTS_Row_DAO
         }
     }
 
-/**
- * Magic PHP5 method.
- *
- * @version 0.1.5
- * @since 0.1.5
- * @param string $name Property name.
- * @param mixed $value Property value.
- * @throws OutOfBoundsException For non-supported properties.
- * @throws PDOException On PDO operation error.
- */
+    /**
+     * Magic PHP5 method.
+     *
+     * @param string $name Property name.
+     * @param mixed $value Property value.
+     * @throws OutOfBoundsException For non-supported properties.
+     * @throws PDOException On PDO operation error.
+     * @version 0.1.5
+     * @since 0.1.5
+     */
     public function __set($name, $value)
     {
-        switch($name)
-        {
+        switch ($name) {
             case 'value':
                 $this->setValue($value);
                 break;
@@ -558,12 +540,9 @@ abstract class OTS_Ban extends OTS_Row_DAO
                 break;
 
             case 'active':
-                if($value)
-                {
+                if ($value) {
                     $this->activate();
-                }
-                else
-                {
+                } else {
                     $this->deactivate();
                 }
                 break;
@@ -593,5 +572,3 @@ abstract class OTS_Ban extends OTS_Row_DAO
         }
     }
 }
-
-?>

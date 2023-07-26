@@ -29,13 +29,13 @@ $showCounter = true;
 /* COUNTER CONFIG END */
 ?>
 
-<!-- ACCOUNT COINS TOP BOX -->
+    <!-- ACCOUNT COINS TOP BOX -->
 <?php if ($logged) {
     require SYSTEM . 'pages/char_bazaar/coins_balance.php';
 } ?>
-<!-- ACCOUNT COINS TOP BOX -->
+    <!-- ACCOUNT COINS TOP BOX -->
 
-<!-- FIRST PAGE - SHOW AUCTIONS -->
+    <!-- FIRST PAGE - SHOW AUCTIONS -->
 <?php
 if (!$getPageDetails) {
     if (!$logged) {
@@ -138,14 +138,14 @@ if (!$getPageDetails) {
         </table>
     </div>
 <?php } ?>
-<!-- FIRST PAGE - SHOW AUCTIONS END -->
+    <!-- FIRST PAGE - SHOW AUCTIONS END -->
 
-<!-- AUCTION DETAILS -->
+    <!-- AUCTION DETAILS -->
 <?php
 if ($getPageDetails) {
     require SYSTEM . 'pages/char_bazaar/details.php';
 } ?>
-<!-- AUCTION DETAILS END -->
+    <!-- AUCTION DETAILS END -->
 
 <?php
 if ($getPageAction == 'bid') {
@@ -514,7 +514,7 @@ if ($getPageAction == 'bid') {
 }
 ?>
 
-<!-- REGISTRO NA DB -->
+    <!-- REGISTRO NA DB -->
 <?php
 if ($getPageAction == 'bidfinish') {
 
@@ -606,4 +606,3 @@ if ($getPageAction == 'finish') {
 
     header('Location: ' . BASE_URL . '?account/manage');
 }
-?>

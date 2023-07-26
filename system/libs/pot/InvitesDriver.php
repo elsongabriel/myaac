@@ -27,10 +27,10 @@ class InvitesDriver implements IOTS_GuildAction
 {
     // assigned guild
     private $guild;
-	
+
     // database
     private $db;
-	
+
     // initializes driver
     public function __construct(OTS_Guild $guild)
     {
@@ -97,5 +97,3 @@ class InvitesDriver implements IOTS_GuildAction
         $this->deleteRequest($player);
     }
 }
-
-?>

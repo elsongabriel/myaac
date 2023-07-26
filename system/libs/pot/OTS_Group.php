@@ -28,111 +28,107 @@
  */
 class OTS_Group extends OTS_Row_DAO implements IteratorAggregate, Countable
 {
-/**
- * Group data.
- *
- * @var array
- */
+    /**
+     * Group data.
+     *
+     * @var array
+     */
     protected $data = array('flags' => 0, 'customFlags' => 0, 'access' => 0, 'ghostAccess' => 0);
 
-/**
- * Spell info resource.
- *
- * @var DOMElement
- */
+    /**
+     * Spell info resource.
+     *
+     * @var DOMElement
+     */
     private $element;
 
-/**
- * Sets group info.
- *
- * @param DOMElement $group  Group info.
- */
+    /**
+     * Sets group info.
+     *
+     * @param DOMElement $group Group info.
+     */
     public function __construct($data = array())
     {
-		$this->data = $data;
+        $this->data = $data;
     }
 
-/**
- * Checks if object is loaded.
- *
- * @version 0.0.1
- * @return bool Load state.
- */
+    /**
+     * Checks if object is loaded.
+     *
+     * @return bool Load state.
+     * @version 0.0.1
+     */
     public function isLoaded()
     {
         return isset($this->data['id']);
     }
 
-/**
- * Loads group with given id.
- *
- * @version 0.0.5
- * @param int $id Group number.
- * @throws PDOException On PDO operation error.
- */
+    /**
+     * Loads group with given id.
+     *
+     * @param int $id Group number.
+     * @throws PDOException On PDO operation error.
+     * @version 0.0.5
+     */
     public function load($element)
     {
         // SELECT query on database
- //       $this->data = $this->db->query('SELECT ' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('name') . ', ' . $this->db->fieldName('flags') . ', ' . $this->db->fieldName('access') . ', ' . $this->db->fieldName('maxdepotitems') . ', ' . $this->db->fieldName('maxviplist') . ' FROM ' . $this->db->tableName('groups') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . (int) $id)->fetch();
+        //       $this->data = $this->db->query('SELECT ' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('name') . ', ' . $this->db->fieldName('flags') . ', ' . $this->db->fieldName('access') . ', ' . $this->db->fieldName('maxdepotitems') . ', ' . $this->db->fieldName('maxviplist') . ' FROM ' . $this->db->tableName('groups') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . (int) $id)->fetch();
 
-		        $this->element = $element;
- //       $groups = new DOMDocument();
-  //      $groups->load($path);
-  //      foreach($groups->getElementsByTagName('group') as $group)
-  //      {
-	//		if($group->getAttribute('id') == $_id)
-	//		{
+        $this->element = $element;
+        //       $groups = new DOMDocument();
+        //      $groups->load($path);
+        //      foreach($groups->getElementsByTagName('group') as $group)
+        //      {
+        //		if($group->getAttribute('id') == $_id)
+        //		{
 
-				$this->data['id'] = $element->getAttribute('id');
-				$this->data['access'] = $element->getAttribute('access');
-				$this->data['name'] = $element->getAttribute('name');
-				$this->data['maxviplist'] = $element->getAttribute('maxVips');
-				$this->data['maxdepotitems'] = $element->getAttribute('depotLimit');
-	//		}
-    //    }
+        $this->data['id'] = $element->getAttribute('id');
+        $this->data['access'] = $element->getAttribute('access');
+        $this->data['name'] = $element->getAttribute('name');
+        $this->data['maxviplist'] = $element->getAttribute('maxVips');
+        $this->data['maxdepotitems'] = $element->getAttribute('depotLimit');
+        //		}
+        //    }
     }
 
-/**
- * Loads group by it's name.
- *
- * @version 0.1.1
- * @since 0.1.1
- * @param string $name Group name.
- * @throws PDOException On PDO operation error.
- */
+    /**
+     * Loads group by it's name.
+     *
+     * @param string $name Group name.
+     * @throws PDOException On PDO operation error.
+     * @version 0.1.1
+     * @since 0.1.1
+     */
     public function find($name)
     {
         // finds group's ID
-        $id = $this->db->query('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('groups') . ' WHERE ' . $this->db->fieldName('name') . ' = ' . $this->db->quote($name) )->fetch();
+        $id = $this->db->query('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('groups') . ' WHERE ' . $this->db->fieldName('name') . ' = ' . $this->db->quote($name))->fetch();
 
         // if anything was found
-        if( isset($id['id']) )
-        {
+        if (isset($id['id'])) {
             $this->load($id['id']);
         }
     }
 
-/**
- * Saves group in database.
- *
- * <p>
- * If group is not loaded to represent any existing group it will create new row for it.
- * </p>
- *
- * @version 0.0.5
- * @throws PDOException On PDO operation error.
- */
+    /**
+     * Saves group in database.
+     *
+     * <p>
+     * If group is not loaded to represent any existing group it will create new row for it.
+     * </p>
+     *
+     * @throws PDOException On PDO operation error.
+     * @version 0.0.5
+     */
     public function save()
     {
         // updates existing group
-        if( isset($this->data['id']) )
-        {
+        if (isset($this->data['id'])) {
             // UPDATE query on database
             $this->db->exec('UPDATE ' . $this->db->tableName('groups') . ' SET ' . $this->db->fieldName('name') . ' = ' . $this->db->quote($this->data['name']) . ', ' . $this->db->fieldName('flags') . ' = ' . $this->data['flags'] . ', ' . $this->db->fieldName('access') . ' = ' . $this->data['access'] . ', ' . $this->db->fieldName('maxdepotitems') . ' = ' . $this->data['maxdepotitems'] . ', ' . $this->db->fieldName('maxviplist') . ' = ' . $this->data['maxviplist'] . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
-        }
-        // creates new group
-        else
-        {
+        } // creates new group
+        else {
             // INSERT query on database
             $this->db->exec('INSERT INTO ' . $this->db->tableName('groups') . ' (' . $this->db->fieldName('name') . ', ' . $this->db->fieldName('flags') . ', ' . $this->db->fieldName('access') . ', ' . $this->db->fieldName('maxdepotitems') . ', ' . $this->db->fieldName('maxviplist') . ') VALUES (' . $this->db->quote($this->data['name']) . ', ' . $this->data['flags'] . ', ' . $this->data['access'] . ', ' . $this->data['maxdepotitems'] . ', ' . $this->data['maxviplist'] . ')');
             // ID of new group
@@ -140,259 +136,251 @@ class OTS_Group extends OTS_Row_DAO implements IteratorAggregate, Countable
         }
     }
 
-/**
- * Group ID.
- *
- * <p>
- * Note: Since 0.0.3 version this method throws {@link E_OTS_NotLoaded E_OTS_NotLoaded exception} instead of triggering E_USER_WARNING.
- * </p>
- *
- * @version 0.0.3
- * @return int Group ID.
- * @throws E_OTS_NotLoaded If group is not loaded.
- */
+    /**
+     * Group ID.
+     *
+     * <p>
+     * Note: Since 0.0.3 version this method throws {@link E_OTS_NotLoaded E_OTS_NotLoaded exception} instead of triggering E_USER_WARNING.
+     * </p>
+     *
+     * @return int Group ID.
+     * @throws E_OTS_NotLoaded If group is not loaded.
+     * @version 0.0.3
+     */
     public function getId()
     {
-        if( !isset($this->data['id']) )
-        {
+        if (!isset($this->data['id'])) {
             throw new E_OTS_NotLoaded();
         }
 
         return $this->data['id'];
     }
 
-/**
- * Group name.
- *
- * <p>
- * Note: Since 0.0.3 version this method throws {@link E_OTS_NotLoaded E_OTS_NotLoaded exception} instead of triggering E_USER_WARNING.
- * </p>
- *
- * @version 0.0.3
- * @return string Name.
- * @throws E_OTS_NotLoaded If group is not loaded.
- */
+    /**
+     * Group name.
+     *
+     * <p>
+     * Note: Since 0.0.3 version this method throws {@link E_OTS_NotLoaded E_OTS_NotLoaded exception} instead of triggering E_USER_WARNING.
+     * </p>
+     *
+     * @return string Name.
+     * @throws E_OTS_NotLoaded If group is not loaded.
+     * @version 0.0.3
+     */
     public function getName()
     {
-        if( !isset($this->data['name']) )
-        {
+        if (!isset($this->data['name'])) {
             throw new E_OTS_NotLoaded();
         }
 
         return $this->data['name'];
     }
 
-/**
- * Sets group's name.
- *
- * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Group::save() save() method} to flush changed to database.
- * </p>
- *
- * @param string $name Name.
- */
+    /**
+     * Sets group's name.
+     *
+     * <p>
+     * This method only updates object state. To save changes in database you need to use {@link OTS_Group::save() save() method} to flush changed to database.
+     * </p>
+     *
+     * @param string $name Name.
+     */
     public function setName($name)
     {
-        $this->data['name'] = (string) $name;
+        $this->data['name'] = (string)$name;
     }
 
-/**
- * Rights flags.
- *
- * <p>
- * Note: Since 0.0.3 version this method throws {@link E_OTS_NotLoaded E_OTS_NotLoaded exception} instead of triggering E_USER_WARNING.
- * </p>
- *
- * @version 0.0.3
- * @return int Flags.
- * @throws E_OTS_NotLoaded If group is not loaded.
- */
+    /**
+     * Rights flags.
+     *
+     * <p>
+     * Note: Since 0.0.3 version this method throws {@link E_OTS_NotLoaded E_OTS_NotLoaded exception} instead of triggering E_USER_WARNING.
+     * </p>
+     *
+     * @return int Flags.
+     * @throws E_OTS_NotLoaded If group is not loaded.
+     * @version 0.0.3
+     */
     public function getFlags()
     {
-        if( !isset($this->data['flags']) )
-        {
+        if (!isset($this->data['flags'])) {
             throw new E_OTS_NotLoaded();
         }
 
         return $this->data['flags'];
     }
 
-/**
- * Sets rights flags.
- *
- * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Group::save() save() method} to flush changed to database.
- * </p>
- *
- * @param int $flags Flags.
- */
+    /**
+     * Sets rights flags.
+     *
+     * <p>
+     * This method only updates object state. To save changes in database you need to use {@link OTS_Group::save() save() method} to flush changed to database.
+     * </p>
+     *
+     * @param int $flags Flags.
+     */
     public function setFlags($flags)
     {
-        $this->data['flags'] = (int) $flags;
+        $this->data['flags'] = (int)$flags;
     }
 
-/**
- * Custom flags.
- *
- * <p>
- * Note: Since 0.0.3 version this method throws {@link E_OTS_NotLoaded E_OTS_NotLoaded exception} instead of triggering E_USER_WARNING.
- * </p>
- *
- * @version 0.0.3
- * @return int Flags.
- * @throws E_OTS_NotLoaded If group is not loaded.
- */
+    /**
+     * Custom flags.
+     *
+     * <p>
+     * Note: Since 0.0.3 version this method throws {@link E_OTS_NotLoaded E_OTS_NotLoaded exception} instead of triggering E_USER_WARNING.
+     * </p>
+     *
+     * @return int Flags.
+     * @throws E_OTS_NotLoaded If group is not loaded.
+     * @version 0.0.3
+     */
     public function getCustomFlags()
     {
-        if( !isset($this->data['customFlags']) )
-        {
+        if (!isset($this->data['customFlags'])) {
             throw new E_OTS_NotLoaded();
         }
 
         return $this->data['customFlags'];
     }
 
-/**
- * Sets rights flags.
- *
- * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Group::save() save() method} to flush changed to database.
- * </p>
- *
- * @param int $flags Flags.
- */
+    /**
+     * Sets rights flags.
+     *
+     * <p>
+     * This method only updates object state. To save changes in database you need to use {@link OTS_Group::save() save() method} to flush changed to database.
+     * </p>
+     *
+     * @param int $flags Flags.
+     */
     public function setCustomFlags($flags)
     {
-        $this->data['customFlags'] = (int) $flags;
+        $this->data['customFlags'] = (int)$flags;
     }
 
-/**
- * Access level.
- *
- * <p>
- * Note: Since 0.0.3 version this method throws {@link E_OTS_NotLoaded E_OTS_NotLoaded exception} instead of triggering E_USER_WARNING.
- * </p>
- *
- * @version 0.0.3
- * @return int Access level.
- * @throws E_OTS_NotLoaded If group is not loaded.
- */
+    /**
+     * Access level.
+     *
+     * <p>
+     * Note: Since 0.0.3 version this method throws {@link E_OTS_NotLoaded E_OTS_NotLoaded exception} instead of triggering E_USER_WARNING.
+     * </p>
+     *
+     * @return int Access level.
+     * @throws E_OTS_NotLoaded If group is not loaded.
+     * @version 0.0.3
+     */
     public function getAccess()
     {
-        if( !isset($this->data['access']) )
-        {
+        if (!isset($this->data['access'])) {
             throw new E_OTS_NotLoaded();
         }
 
         return $this->data['access'];
     }
 
-/**
- * Sets access level.
- *
- * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Group::save() save() method} to flush changed to database.
- * </p>
- *
- * @param int $access Access level.
- */
+    /**
+     * Sets access level.
+     *
+     * <p>
+     * This method only updates object state. To save changes in database you need to use {@link OTS_Group::save() save() method} to flush changed to database.
+     * </p>
+     *
+     * @param int $access Access level.
+     */
     public function setAccess($access)
     {
-        $this->data['access'] = (int) $access;
+        $this->data['access'] = (int)$access;
     }
 
-/**
- * Maximum count of items in depot.
- *
- * <p>
- * Note: Since 0.0.3 version this method throws {@link E_OTS_NotLoaded E_OTS_NotLoaded exception} instead of triggering E_USER_WARNING.
- * </p>
- *
- * @version 0.0.3
- * @return int Maximum value.
- * @throws E_OTS_NotLoaded If group is not loaded.
- */
+    /**
+     * Maximum count of items in depot.
+     *
+     * <p>
+     * Note: Since 0.0.3 version this method throws {@link E_OTS_NotLoaded E_OTS_NotLoaded exception} instead of triggering E_USER_WARNING.
+     * </p>
+     *
+     * @return int Maximum value.
+     * @throws E_OTS_NotLoaded If group is not loaded.
+     * @version 0.0.3
+     */
     public function getMaxDepotItems()
     {
-        if( !isset($this->data['maxdepotitems']) )
-        {
+        if (!isset($this->data['maxdepotitems'])) {
             throw new E_OTS_NotLoaded();
         }
 
         return $this->data['maxdepotitems'];
     }
 
-/**
- * Sets maximum count of items in depot.
- *
- * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Group::save() save() method} to flush changed to database.
- * </p>
- *
- * @param int $maxdepotitems Maximum value.
- */
+    /**
+     * Sets maximum count of items in depot.
+     *
+     * <p>
+     * This method only updates object state. To save changes in database you need to use {@link OTS_Group::save() save() method} to flush changed to database.
+     * </p>
+     *
+     * @param int $maxdepotitems Maximum value.
+     */
     public function setMaxDepotItems($maxdepotitems)
     {
-        $this->data['maxdepotitems'] = (int) $maxdepotitems;
+        $this->data['maxdepotitems'] = (int)$maxdepotitems;
     }
 
-/**
- * Maximum count of players in VIP list.
- *
- * <p>
- * Note: Since 0.0.3 version this method throws {@link E_OTS_NotLoaded E_OTS_NotLoaded exception} instead of triggering E_USER_WARNING.
- * </p>
- *
- * @version 0.0.3
- * @return int Maximum value.
- * @throws E_OTS_NotLoaded If group is not loaded.
- */
+    /**
+     * Maximum count of players in VIP list.
+     *
+     * <p>
+     * Note: Since 0.0.3 version this method throws {@link E_OTS_NotLoaded E_OTS_NotLoaded exception} instead of triggering E_USER_WARNING.
+     * </p>
+     *
+     * @return int Maximum value.
+     * @throws E_OTS_NotLoaded If group is not loaded.
+     * @version 0.0.3
+     */
     public function getMaxVIPList()
     {
-        if( !isset($this->data['maxviplist']) )
-        {
+        if (!isset($this->data['maxviplist'])) {
             throw new E_OTS_NotLoaded();
         }
 
         return $this->data['maxviplist'];
     }
 
-/**
- * Sets maximum count of players in VIP list.
- *
- * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Group::save() save() method} to flush changed to database.
- * </p>
- *
- * @param int $maxviplist Maximum value.
- */
+    /**
+     * Sets maximum count of players in VIP list.
+     *
+     * <p>
+     * This method only updates object state. To save changes in database you need to use {@link OTS_Group::save() save() method} to flush changed to database.
+     * </p>
+     *
+     * @param int $maxviplist Maximum value.
+     */
     public function setMaxVIPList($maxviplist)
     {
-        $this->data['maxviplist'] = (int) $maxviplist;
+        $this->data['maxviplist'] = (int)$maxviplist;
     }
 
-/**
- * Reads custom field.
- *
- * <p>
- * Reads field by it's name. Can read any field of given record that exists in database.
- * </p>
- *
- * <p>
- * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
- * </p>
- *
- * @version 0.0.5
- * @since 0.0.3
- * @param string $field Field name.
- * @return string Field value.
- * @throws E_OTS_NotLoaded If group is not loaded.
- * @throws PDOException On PDO operation error.
- */
+    /**
+     * Reads custom field.
+     *
+     * <p>
+     * Reads field by it's name. Can read any field of given record that exists in database.
+     * </p>
+     *
+     * <p>
+     * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
+     * </p>
+     *
+     * @param string $field Field name.
+     * @return string Field value.
+     * @throws E_OTS_NotLoaded If group is not loaded.
+     * @throws PDOException On PDO operation error.
+     * @version 0.0.5
+     * @since 0.0.3
+     */
     public function getCustomField($field)
     {
-        if( !isset($this->data['id']) )
-        {
+        if (!isset($this->data['id'])) {
             throw new E_OTS_NotLoaded();
         }
 
@@ -400,61 +388,57 @@ class OTS_Group extends OTS_Row_DAO implements IteratorAggregate, Countable
         return $value[$field];
     }
 
-/**
- * Writes custom field.
- *
- * <p>
- * Write field by it's name. Can write any field of given record that exists in database.
- * </p>
- *
- * <p>
- * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
- * </p>
- *
- * <p>
- * Note: Make sure that you pass $value argument of correct type. This method determinates whether to quote field name. It is safe - it makes you sure that no unproper queries that could lead to SQL injection will be executed, but it can make your code working wrong way. For example: $object->setCustomField('foo', '1'); will quote 1 as as string ('1') instead of passing it as a integer.
- * </p>
- *
- * @version 0.0.5
- * @since 0.0.3
- * @param string $field Field name.
- * @param mixed $value Field value.
- * @throws E_OTS_NotLoaded If group is not loaded.
- * @throws PDOException On PDO operation error.
- */
+    /**
+     * Writes custom field.
+     *
+     * <p>
+     * Write field by it's name. Can write any field of given record that exists in database.
+     * </p>
+     *
+     * <p>
+     * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
+     * </p>
+     *
+     * <p>
+     * Note: Make sure that you pass $value argument of correct type. This method determinates whether to quote field name. It is safe - it makes you sure that no unproper queries that could lead to SQL injection will be executed, but it can make your code working wrong way. For example: $object->setCustomField('foo', '1'); will quote 1 as as string ('1') instead of passing it as a integer.
+     * </p>
+     *
+     * @param string $field Field name.
+     * @param mixed $value Field value.
+     * @throws E_OTS_NotLoaded If group is not loaded.
+     * @throws PDOException On PDO operation error.
+     * @version 0.0.5
+     * @since 0.0.3
+     */
     public function setCustomField($field, $value)
     {
-        if( !isset($this->data['id']) )
-        {
+        if (!isset($this->data['id'])) {
             throw new E_OTS_NotLoaded();
         }
 
         // quotes value for SQL query
-        if(!( is_int($value) || is_float($value) ))
-        {
+        if (!(is_int($value) || is_float($value))) {
             $value = $this->db->quote($value);
         }
 
         $this->db->exec('UPDATE ' . $this->db->tableName('groups') . ' SET ' . $this->db->fieldName($field) . ' = ' . $value . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
     }
 
-/**
- * @version 0.1.0
- * @return array Array of OTS_Player objects from given group.
- * @throws E_OTS_NotLoaded If group is not loaded.
- * @deprecated 0.0.5 Use getPlayersList().
- */
+    /**
+     * @return array Array of OTS_Player objects from given group.
+     * @throws E_OTS_NotLoaded If group is not loaded.
+     * @version 0.1.0
+     * @deprecated 0.0.5 Use getPlayersList().
+     */
     public function getPlayers()
     {
-        if( !isset($this->data['id']) )
-        {
+        if (!isset($this->data['id'])) {
             throw new E_OTS_NotLoaded();
         }
 
         $players = array();
 
-        foreach( $this->db->query('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('players') . ' WHERE ' . $this->db->fieldName('group_id') . ' = ' . $this->data['id'])->fetchAll() as $player)
-        {
+        foreach ($this->db->query('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('players') . ' WHERE ' . $this->db->fieldName('group_id') . ' = ' . $this->data['id'])->fetchAll() as $player) {
             // creates new object
             $object = new OTS_Player();
             $object->load($player['id']);
@@ -464,37 +448,36 @@ class OTS_Group extends OTS_Row_DAO implements IteratorAggregate, Countable
         return $players;
     }
 
-/**
- * List of characters in group.
- *
- * <p>
- * In difference to {@link OTS_Group::getPlayers() getPlayers() method} this method returns filtered {@link OTS_Players_List OTS_Players_List} object instead of array of {@link OTS_Player OTS_Player} objects. It is more effective since OTS_Player_List doesn't perform all rows loading at once.
- * </p>
- *
- * <p>
- * Note: Returned object is only prepared, but not initialised. When using as parameter in foreach loop it doesn't matter since it will return it's iterator, but if you will wan't to execute direct operation on that object you will need to call {@link OTS_Base_List::rewind() rewind() method} first.
- * </p>
- *
- * @version 0.1.4
- * @since 0.0.5
- * @return OTS_Players_List List of players from current group.
- * @throws E_OTS_NotLoaded If group is not loaded.
- */
+    /**
+     * List of characters in group.
+     *
+     * <p>
+     * In difference to {@link OTS_Group::getPlayers() getPlayers() method} this method returns filtered {@link OTS_Players_List OTS_Players_List} object instead of array of {@link OTS_Player OTS_Player} objects. It is more effective since OTS_Player_List doesn't perform all rows loading at once.
+     * </p>
+     *
+     * <p>
+     * Note: Returned object is only prepared, but not initialised. When using as parameter in foreach loop it doesn't matter since it will return it's iterator, but if you will wan't to execute direct operation on that object you will need to call {@link OTS_Base_List::rewind() rewind() method} first.
+     * </p>
+     *
+     * @return OTS_Players_List List of players from current group.
+     * @throws E_OTS_NotLoaded If group is not loaded.
+     * @version 0.1.4
+     * @since 0.0.5
+     */
     public function getPlayersList()
     {
-        if( !isset($this->data['id']) )
-        {
+        if (!isset($this->data['id'])) {
             throw new E_OTS_NotLoaded();
         }
 
         // creates filter
         $filter = new OTS_SQLFilter();
-        $filter->compareField('group_id', (int) $this->data['id']);
-		global $db;
-		if($db->hasColumn('players', 'deletion'))
-			$filter->compareField('deletion', 0);
-		else
-      	  $filter->compareField('deleted', 0);
+        $filter->compareField('group_id', (int)$this->data['id']);
+        global $db;
+        if ($db->hasColumn('players', 'deletion'))
+            $filter->compareField('deletion', 0);
+        else
+            $filter->compareField('deleted', 0);
 
         // creates list object
         $list = new OTS_Players_List();
@@ -503,18 +486,17 @@ class OTS_Group extends OTS_Row_DAO implements IteratorAggregate, Countable
         return $list;
     }
 
-/**
- * Deletes group.
- *
- * @version 0.0.5
- * @since 0.0.5
- * @throws E_OTS_NotLoaded If group is not loaded.
- * @throws PDOException On PDO operation error.
- */
+    /**
+     * Deletes group.
+     *
+     * @throws E_OTS_NotLoaded If group is not loaded.
+     * @throws PDOException On PDO operation error.
+     * @version 0.0.5
+     * @since 0.0.5
+     */
     public function delete()
     {
-        if( !isset($this->data['id']) )
-        {
+        if (!isset($this->data['id'])) {
             throw new E_OTS_NotLoaded();
         }
 
@@ -525,54 +507,53 @@ class OTS_Group extends OTS_Row_DAO implements IteratorAggregate, Countable
         unset($this->data['id']);
     }
 
-/**
- * Returns players iterator.
- *
- * <p>
- * There is no need to implement entire Iterator interface since we have {@link OTS_Players_List players list class} for it.
- * </p>
- *
- * @version 0.0.5
- * @since 0.0.5
- * @throws E_OTS_NotLoaded If group is not loaded.
- * @throws PDOException On PDO operation error.
- * @return Iterator List of players.
- */
+    /**
+     * Returns players iterator.
+     *
+     * <p>
+     * There is no need to implement entire Iterator interface since we have {@link OTS_Players_List players list class} for it.
+     * </p>
+     *
+     * @return Iterator List of players.
+     * @throws PDOException On PDO operation error.
+     * @throws E_OTS_NotLoaded If group is not loaded.
+     * @since 0.0.5
+     * @version 0.0.5
+     */
     #[\ReturnTypeWillChange]
     public function getIterator()
     {
         return $this->getPlayersList();
     }
 
-/**
- * Returns number of player within.
- *
- * @version 0.0.5
- * @since 0.0.5
- * @throws E_OTS_NotLoaded If group is not loaded.
- * @throws PDOException On PDO operation error.
- * @return int Count of players.
- */
+    /**
+     * Returns number of player within.
+     *
+     * @return int Count of players.
+     * @throws PDOException On PDO operation error.
+     * @throws E_OTS_NotLoaded If group is not loaded.
+     * @since 0.0.5
+     * @version 0.0.5
+     */
     public function count(): int
     {
         return $this->getPlayersList()->count();
     }
 
-/**
- * Magic PHP5 method.
- *
- * @version 0.1.0
- * @since 0.1.0
- * @param string $name Property name.
- * @return mixed Property value.
- * @throws E_OTS_NotLoaded If group is not loaded.
- * @throws OutOfBoundsException For non-supported properties.
- * @throws PDOException On PDO operation error.
- */
+    /**
+     * Magic PHP5 method.
+     *
+     * @param string $name Property name.
+     * @return mixed Property value.
+     * @throws E_OTS_NotLoaded If group is not loaded.
+     * @throws OutOfBoundsException For non-supported properties.
+     * @throws PDOException On PDO operation error.
+     * @since 0.1.0
+     * @version 0.1.0
+     */
     public function __get($name)
     {
-        switch($name)
-        {
+        switch ($name) {
             case 'loaded':
                 return $this->isLoaded();
 
@@ -602,23 +583,22 @@ class OTS_Group extends OTS_Row_DAO implements IteratorAggregate, Countable
         }
     }
 
-/**
- * Magic PHP5 method.
- *
- * @version 0.1.0
- * @since 0.1.0
- * @param string $name Property name.
- * @param mixed $value Property value.
- * @throws OutOfBoundsException For non-supported properties.
- * @throws PDOException On PDO operation error.
- */
+    /**
+     * Magic PHP5 method.
+     *
+     * @param string $name Property name.
+     * @param mixed $value Property value.
+     * @throws OutOfBoundsException For non-supported properties.
+     * @throws PDOException On PDO operation error.
+     * @version 0.1.0
+     * @since 0.1.0
+     */
     public function __set($name, $value)
     {
-        switch($name)
-        {
-			case 'id':
-				$this->data['id'] = $value;
-				break;
+        switch ($name) {
+            case 'id':
+                $this->data['id'] = $value;
+                break;
 
             case 'name':
                 $this->setName($value);
@@ -645,24 +625,23 @@ class OTS_Group extends OTS_Row_DAO implements IteratorAggregate, Countable
         }
     }
 
-/**
- * Returns string representation of object.
- *
- * <p>
- * If any display driver is currently loaded then it uses it's method. Else it returns group name.
- * </p>
- *
- * @version 0.1.3
- * @since 0.1.0
- * @return string String representation of object.
- */
+    /**
+     * Returns string representation of object.
+     *
+     * <p>
+     * If any display driver is currently loaded then it uses it's method. Else it returns group name.
+     * </p>
+     *
+     * @return string String representation of object.
+     * @since 0.1.0
+     * @version 0.1.3
+     */
     public function __toString()
     {
         $ots = POT::getInstance();
 
         // checks if display driver is loaded
-        if( $ots->isDisplayDriverLoaded() )
-        {
+        if ($ots->isDisplayDriverLoaded()) {
             return $ots->getDisplayDriver()->displayGroup($this);
         }
 
@@ -671,5 +650,3 @@ class OTS_Group extends OTS_Row_DAO implements IteratorAggregate, Countable
 }
 
 /**#@-*/
-
-?>

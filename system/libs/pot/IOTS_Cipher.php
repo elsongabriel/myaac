@@ -14,28 +14,26 @@
 
 /**
  * Cypher encryption/decryption class interface.
- * 
+ *
  * @package POT
  */
 interface IOTS_Cipher
 {
-/**
- * Ecnrypts message.
- * 
- * @param string $message Message to be encrypted.
- * @return string Encrypted message.
- */
+    /**
+     * Ecnrypts message.
+     *
+     * @param string $message Message to be encrypted.
+     * @return string Encrypted message.
+     */
     public function encrypt($message);
 
-/**
- * Decrypts encrypted message.
- * 
- * @param string $message Encrypted message.
- * @return string Decrypted content.
- */
+    /**
+     * Decrypts encrypted message.
+     *
+     * @param string $message Encrypted message.
+     * @return string Decrypted content.
+     */
     public function decrypt($message);
 }
 
 /**#@-*/
-
-?>

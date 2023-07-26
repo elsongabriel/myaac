@@ -7,7 +7,7 @@
 
 /**
  * Code in this file bases on oryginal OTServ OTBM format loading C++ code (iomapotbm.h, iomapotbm.cpp).
- * 
+ *
  * @package POT
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
@@ -16,21 +16,19 @@
 
 /**
  * OTBM map loading error.
- * 
+ *
  * @package POT
  */
 class E_OTS_OTBMError extends E_OTS_ErrorCode
 {
-/**
- * Unsupported file version.
- */
+    /**
+     * Unsupported file version.
+     */
     const LOADMAPERROR_OUTDATEDHEADER = 3;
-/**
- * Unknown node type.
- */
+    /**
+     * Unknown node type.
+     */
     const LOADMAPERROR_UNKNOWNNODETYPE = 8;
 }
 
 /**#@-*/
-
-?>

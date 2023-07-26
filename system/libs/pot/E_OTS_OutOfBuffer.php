@@ -7,7 +7,7 @@
 
 /**
  * Code in this file bases on oryginal OTServ binary format loading C++ code (fileloader.h, fileloader.cpp).
- * 
+ *
  * @package POT
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
@@ -16,7 +16,7 @@
 
 /**
  * Occurs when properties stream has ended and there is still read attempt.
- * 
+ *
  * @package POT
  */
 class E_OTS_OutOfBuffer extends Exception
@@ -24,5 +24,3 @@ class E_OTS_OutOfBuffer extends Exception
 }
 
 /**#@-*/
-
-?>

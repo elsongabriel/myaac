@@ -29,56 +29,55 @@
  */
 class OTS_SpellsList implements IteratorAggregate, Countable
 {
-/**
- * Rune spell.
- */
+    /**
+     * Rune spell.
+     */
     const SPELL_RUNE = 0;
-/**
- * Instant spell.
- */
+    /**
+     * Instant spell.
+     */
     const SPELL_INSTANT = 1;
-/**
- * Conjure spell.
- */
+    /**
+     * Conjure spell.
+     */
     const SPELL_CONJURE = 2;
 
-/**
- * Rune spells.
- *
- * @var array
- */
+    /**
+     * Rune spells.
+     *
+     * @var array
+     */
     private $runes = array();
 
-/**
- * Instant spells.
- *
- * @var array
- */
+    /**
+     * Instant spells.
+     *
+     * @var array
+     */
     private $instants = array();
 
-/**
- * Conjure spells.
- *
- * @var array
- */
+    /**
+     * Conjure spells.
+     *
+     * @var array
+     */
     private $conjures = array();
 
-/**
- * Magic PHP5 method.
- *
- * <p>
- * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
- * </p>
- *
- * @param array $properties List of object properties.
- */
+    /**
+     * Magic PHP5 method.
+     *
+     * <p>
+     * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
+     * </p>
+     *
+     * @param array $properties List of object properties.
+     */
     public static function __set_state($properties)
     {
         $object = new self();
 
         // loads properties
-        foreach($properties as $name => $value)
-        {
+        foreach ($properties as $name => $value) {
             $object->$name = $value;
         }
 
@@ -122,140 +121,136 @@ class OTS_SpellsList implements IteratorAggregate, Countable
         }
     }
 
-/**
- * Returns list of runes.
- *
- * @return array List of rune names.
- */
+    /**
+     * Returns list of runes.
+     *
+     * @return array List of rune names.
+     */
     public function getRunesList()
     {
         return array_keys($this->runes);
     }
 
-/**
- * Checks if rune exists.
- *
- * @version 0.1.3
- * @since 0.1.3
- * @param string $name Rune name.
- * @return bool If rune is set then true.
- */
+    /**
+     * Checks if rune exists.
+     *
+     * @param string $name Rune name.
+     * @return bool If rune is set then true.
+     * @version 0.1.3
+     * @since 0.1.3
+     */
     public function hasRune($name)
     {
         return isset($this->runes[$name]);
     }
 
-/**
- * Returns given rune spell.
- *
- * @version 0.1.3
- * @param string $name Rune name.
- * @return OTS_Spell Rune spell wrapper.
- * @throws OutOfBoundsException If rune does not exist.
- */
+    /**
+     * Returns given rune spell.
+     *
+     * @param string $name Rune name.
+     * @return OTS_Spell Rune spell wrapper.
+     * @throws OutOfBoundsException If rune does not exist.
+     * @version 0.1.3
+     */
     public function getRune($name)
     {
-        if( isset($this->runes[$name]) )
-        {
+        if (isset($this->runes[$name])) {
             return $this->runes[$name];
         }
 
         throw new OutOfBoundsException();
     }
 
-/**
- * Returns list of instants.
- *
- * @return array List of instant spells names.
- */
+    /**
+     * Returns list of instants.
+     *
+     * @return array List of instant spells names.
+     */
     public function getInstantsList()
     {
         return array_keys($this->instants);
     }
 
-/**
- * Checks if instant exists.
- *
- * @version 0.1.3
- * @since 0.1.3
- * @param string $name Instant name.
- * @return bool If instant is set then true.
- */
+    /**
+     * Checks if instant exists.
+     *
+     * @param string $name Instant name.
+     * @return bool If instant is set then true.
+     * @version 0.1.3
+     * @since 0.1.3
+     */
     public function hasInstant($name)
     {
         return isset($this->instants[$name]);
     }
 
-/**
- * Returns given instant spell.
- *
- * @version 0.1.3
- * @param string $name Spell name.
- * @return OTS_Spell Instant spell wrapper.
- * @throws OutOfBoundsException If instant does not exist.
- */
+    /**
+     * Returns given instant spell.
+     *
+     * @param string $name Spell name.
+     * @return OTS_Spell Instant spell wrapper.
+     * @throws OutOfBoundsException If instant does not exist.
+     * @version 0.1.3
+     */
     public function getInstant($name)
     {
-        if( isset($this->instants[$name]) )
-        {
+        if (isset($this->instants[$name])) {
             return $this->instants[$name];
         }
 
         throw new OutOfBoundsException();
     }
 
-/**
- * Returns list of conjure spells.
- *
- * @return array List of conjure spells names.
- */
+    /**
+     * Returns list of conjure spells.
+     *
+     * @return array List of conjure spells names.
+     */
     public function getConjuresList()
     {
         return array_keys($this->conjures);
     }
 
-/**
- * Checks if conjure exists.
- *
- * @version 0.1.3
- * @since 0.1.3
- * @param string $name Conjure name.
- * @return bool If conjure is set then true.
- */
+    /**
+     * Checks if conjure exists.
+     *
+     * @param string $name Conjure name.
+     * @return bool If conjure is set then true.
+     * @version 0.1.3
+     * @since 0.1.3
+     */
     public function hasConjure($name)
     {
         return isset($this->conjures[$name]);
     }
 
-/**
- * Returns given conjure spell.
- *
- * @version 0.1.3
- * @param string $name Spell name.
- * @return OTS_Spell Conjure spell wrapper.
- * @throws OutOfBoundsException If conjure does not exist.
- */
+    /**
+     * Returns given conjure spell.
+     *
+     * @param string $name Spell name.
+     * @return OTS_Spell Conjure spell wrapper.
+     * @throws OutOfBoundsException If conjure does not exist.
+     * @version 0.1.3
+     */
     public function getConjure($name)
     {
-        if( isset($this->conjures[$name]) )
-        {
+        if (isset($this->conjures[$name])) {
             return $this->conjures[$name];
         }
 
         throw new OutOfBoundsException();
     }
 
-/**
- * Magic PHP5 method.
- *
- * @param string $name Property name.
- * @return mixed Property value.
- * @throws OutOfBoundsException For non-supported properties.
- */
+    /**
+     * Magic PHP5 method.
+     *
+     * @param string $name Property name.
+     * @return mixed Property value.
+     * @throws OutOfBoundsException For non-supported properties.
+     */
     public function __get($name)
     {
-        switch($name)
-        {
+        switch ($name) {
             case 'runesList':
                 return $this->getRunesList();
 
@@ -270,57 +265,56 @@ class OTS_SpellsList implements IteratorAggregate, Countable
         }
     }
 
-/**
- * Returns string representation of object.
- *
- * <p>
- * If any display driver is currently loaded then it uses it's method.
- * </p>
- *
- * @version 0.1.3
- * @since 0.1.3
- * @return string String representation of object.
- */
+    /**
+     * Returns string representation of object.
+     *
+     * <p>
+     * If any display driver is currently loaded then it uses it's method.
+     * </p>
+     *
+     * @return string String representation of object.
+     * @since 0.1.3
+     * @version 0.1.3
+     */
     public function __toString()
     {
         $ots = POT::getInstance();
 
         // checks if display driver is loaded
-        if( $ots->isDataDisplayDriverLoaded() )
-        {
+        if ($ots->isDataDisplayDriverLoaded()) {
             return $ots->getDataDisplayDriver()->displaySpellsList($this);
         }
 
-        return (string) $this->count();
+        return (string)$this->count();
     }
 
-/**
- * Iterator for all spells.
- *
- * <p>
- * Returned object will continousely iterate through all kind of spells.
- * </p>
- *
- * @version 0.1.5
- * @since 0.1.5
- * @return AppendIterator Iterator for all spells.
- */
+    /**
+     * Iterator for all spells.
+     *
+     * <p>
+     * Returned object will continousely iterate through all kind of spells.
+     * </p>
+     *
+     * @return AppendIterator Iterator for all spells.
+     * @since 0.1.5
+     * @version 0.1.5
+     */
     public function getIterator(): Traversable
     {
         $iterator = new AppendIterator();
-        $iterator->append( new ArrayIterator($this->runes) );
-        $iterator->append( new ArrayIterator($this->instants) );
-        $iterator->append( new ArrayIterator($this->conjures) );
+        $iterator->append(new ArrayIterator($this->runes));
+        $iterator->append(new ArrayIterator($this->instants));
+        $iterator->append(new ArrayIterator($this->conjures));
         return $iterator;
     }
 
-/**
- * Number of all loaded spells.
- *
- * @version 0.1.5
- * @since 0.1.5
- * @return int Amount of all spells.
- */
+    /**
+     * Number of all loaded spells.
+     *
+     * @return int Amount of all spells.
+     * @since 0.1.5
+     * @version 0.1.5
+     */
     public function count(): int
     {
         return count($this->runes) + count($this->instants) + count($this->conjures);
@@ -328,5 +322,3 @@ class OTS_SpellsList implements IteratorAggregate, Countable
 }
 
 /**#@-*/
-
-?>

@@ -14,7 +14,7 @@
 
 /**
  * Occurs when code attempts to execute driven action that has no assigned driver to handle it.
- * 
+ *
  * @package POT
  */
 class E_OTS_NoDriver extends Exception
@@ -22,5 +22,3 @@ class E_OTS_NoDriver extends Exception
 }
 
 /**#@-*/
-
-?>

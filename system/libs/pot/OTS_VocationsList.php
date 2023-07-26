@@ -23,19 +23,19 @@
  */
 class OTS_VocationsList implements IteratorAggregate, Countable, ArrayAccess
 {
-/**
- * List of vocations.
- *
- * @var array
- */
+    /**
+     * List of vocations.
+     *
+     * @var array
+     */
     private $vocations = array();
 
-/**
- * Loads vocations list from given file.
- *
- * @param string $file vocations.xml file location.
- * @throws DOMException On DOM operation error.
- */
+    /**
+     * Loads vocations list from given file.
+     *
+     * @param string $file vocations.xml file location.
+     * @throws DOMException On DOM operation error.
+     */
     public function __construct($file)
     {
         // loads DOM document
@@ -43,132 +43,127 @@ class OTS_VocationsList implements IteratorAggregate, Countable, ArrayAccess
         $vocations->load($file);
 
         // loads vocations
-        foreach( $vocations->getElementsByTagName('vocation') as $vocation)
-        {
-            $this->vocations[ (int) $vocation->getAttribute('id') ] = $vocation->getAttribute('name');
+        foreach ($vocations->getElementsByTagName('vocation') as $vocation) {
+            $this->vocations[(int)$vocation->getAttribute('id')] = $vocation->getAttribute('name');
         }
     }
 
-/**
- * Magic PHP5 method.
- *
- * <p>
- * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
- * </p>
- *
- * @param array $properties List of object properties.
- * @throws DOMException On DOM operation error.
- */
+    /**
+     * Magic PHP5 method.
+     *
+     * <p>
+     * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
+     * </p>
+     *
+     * @param array $properties List of object properties.
+     * @throws DOMException On DOM operation error.
+     */
     public static function __set_state($properties)
     {
         $object = new self();
 
         // loads properties
-        foreach($properties as $name => $value)
-        {
+        foreach ($properties as $name => $value) {
             $object->$name = $value;
         }
 
         return $object;
     }
 
-/**
- * Checks if given vocation ID exists on list.
- *
- * @version 0.1.3
- * @since 0.1.3
- * @param int $id ID.
- * @return bool If vocation is set then true.
- */
+    /**
+     * Checks if given vocation ID exists on list.
+     *
+     * @param int $id ID.
+     * @return bool If vocation is set then true.
+     * @version 0.1.3
+     * @since 0.1.3
+     */
     public function hasVocationId($id)
     {
         return isset($this->vocations[$id]);
     }
 
-/**
- * Returns vocation's ID.
- *
- * @version 0.1.3
- * @param string $name Vocation.
- * @return int ID.
- * @throws OutOfBoundsException If not found.
- */
+    /**
+     * Returns vocation's ID.
+     *
+     * @param string $name Vocation.
+     * @return int ID.
+     * @throws OutOfBoundsException If not found.
+     * @version 0.1.3
+     */
     public function getVocationId($name)
     {
         $id = array_search($name, $this->vocations);
 
         // checks if vocation was found
-        if($id === false)
-        {
+        if ($id === false) {
             throw new OutOfBoundsException();
         }
 
         return $id;
     }
 
-/**
- * Checks if given vocation name exists on list.
- *
- * @version 0.1.3
- * @since 0.1.3
- * @param string $name Vocation.
- * @return bool If vocation is set then true.
- */
+    /**
+     * Checks if given vocation name exists on list.
+     *
+     * @param string $name Vocation.
+     * @return bool If vocation is set then true.
+     * @version 0.1.3
+     * @since 0.1.3
+     */
     public function hasVocationName($name)
     {
         return array_search($name, $this->vocations) !== false;
     }
 
-/**
- * Returns name of given vocation's ID.
- *
- * @version 0.1.3
- * @param int $id Vocation ID.
- * @return string Name.
- * @throws OutOfBoundsException If not found.
- */
+    /**
+     * Returns name of given vocation's ID.
+     *
+     * @param int $id Vocation ID.
+     * @return string Name.
+     * @throws OutOfBoundsException If not found.
+     * @version 0.1.3
+     */
     public function getVocationName($id)
     {
-        if( isset($this->vocations[$id]) )
-        {
+        if (isset($this->vocations[$id])) {
             return $this->vocations[$id];
         }
 
         throw new OutOfBoundsException();
     }
 
-/**
- * Returns amount of vocations loaded.
- *
- * @return int Count of vocations.
- */
+    /**
+     * Returns amount of vocations loaded.
+     *
+     * @return int Count of vocations.
+     */
     public function count(): int
     {
         return count($this->vocations);
     }
 
-/**
- * Returns iterator handle for loops.
- *
- * @return ArrayIterator Vocations list iterator.
- */
+    /**
+     * Returns iterator handle for loops.
+     *
+     * @return ArrayIterator Vocations list iterator.
+     */
     public function getIterator()
     {
         return new ArrayIterator($this->vocations);
     }
 
-/**
- * Checks if given element exists.
- *
- * @version 0.1.3
- * @param string|int $offset Array key.
- * @return bool True if it's set.
- */
+    /**
+     * Checks if given element exists.
+     *
+     * @param string|int $offset Array key.
+     * @return bool True if it's set.
+     * @version 0.1.3
+     */
     public function offsetExists($offset)
     {
         // integer key
-        if( is_int($offset) )
-        {
+        if (is_int($offset)) {
             return isset($this->vocations[$offset]);
         }
 
@@ -176,18 +171,17 @@ class OTS_VocationsList implements IteratorAggregate, Countable, ArrayAccess
         return array_search($offset, $this->vocations) !== false;
     }
 
-/**
- * Returns item from given position.
- *
- * @version 0.1.3
- * @param string|int $offset Array key.
- * @return string|int If key is an integer (type-sensitive!) then returns vocation name. If it's a string then return associated ID.
- */
+    /**
+     * Returns item from given position.
+     *
+     * @param string|int $offset Array key.
+     * @return string|int If key is an integer (type-sensitive!) then returns vocation name. If it's a string then return associated ID.
+     * @version 0.1.3
+     */
     public function offsetGet($offset)
     {
         // integer key
-        if( is_int($offset) )
-        {
+        if (is_int($offset)) {
             return $this->getVocationName($offset);
         }
 
@@ -195,24 +189,24 @@ class OTS_VocationsList implements IteratorAggregate, Countable, ArrayAccess
         return $this->getVocationId($offset);
     }
 
-/**
- * This method is implemented for ArrayAccess interface. In fact you can't write/append to vocations list. Any call to this method will cause {@link E_OTS_ReadOnly E_OTS_ReadOnly} raise.
- *
- * @param string|int $offset Array key.
- * @param mixed $value Field value.
- * @throws E_OTS_ReadOnly Always - this class is read-only.
- */
+    /**
+     * This method is implemented for ArrayAccess interface. In fact you can't write/append to vocations list. Any call to this method will cause {@link E_OTS_ReadOnly E_OTS_ReadOnly} raise.
+     *
+     * @param string|int $offset Array key.
+     * @param mixed $value Field value.
+     * @throws E_OTS_ReadOnly Always - this class is read-only.
+     */
     public function offsetSet($offset, $value)
     {
         throw new E_OTS_ReadOnly();
     }
 
-/**
- * This method is implemented for ArrayAccess interface. In fact you can't write/append to vocations list. Any call to this method will cause {@link E_OTS_ReadOnly E_OTS_ReadOnly} raise.
- *
- * @param string|int $offset Array key.
- * @throws E_OTS_ReadOnly Always - this class is read-only.
- */
+    /**
+     * This method is implemented for ArrayAccess interface. In fact you can't write/append to vocations list. Any call to this method will cause {@link E_OTS_ReadOnly E_OTS_ReadOnly} raise.
+     *
+     * @param string|int $offset Array key.
+     * @throws E_OTS_ReadOnly Always - this class is read-only.
+     */
     public function offsetUnset($offset)
     {
         throw new E_OTS_ReadOnly();
@@ -220,5 +214,3 @@ class OTS_VocationsList implements IteratorAggregate, Countable, ArrayAccess
 }
 
 /**#@-*/
-
-?>

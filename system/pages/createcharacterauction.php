@@ -211,4 +211,3 @@ if ($getAuctionStep == 'confirm') {
     /* CADASTRAR AUCTION END */
 }
 /* STEP CONFIRM END */
-?>

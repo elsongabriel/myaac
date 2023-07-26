@@ -15,11 +15,11 @@
 
 /**
  * SQL WHERE clause object.
- * 
+ *
  * <p>
  * Objects of this class can be used to filter {@link OTS_Base_List list objects} using {@link OTS_Base_List::setFilter() setFilter() method}. To compose more complex WHERE clauses you can append another filter to this one to create sub-condition.
  * </p>
- * 
+ *
  * @package POT
  * @version 0.1.3
  * @property-read array $tables List of tables used by this statement.
@@ -27,93 +27,93 @@
  */
 class OTS_SQLFilter extends OTS_Base_DAO
 {
-/**
- * Equal operator.
- */
+    /**
+     * Equal operator.
+     */
     const OPERATOR_EQUAL = 1;
-/**
- * Lower-then operator.
- */
+    /**
+     * Lower-then operator.
+     */
     const OPERATOR_LOWER = 2;
-/**
- * Greater-then operator.
- */
+    /**
+     * Greater-then operator.
+     */
     const OPERATOR_GREATER = 3;
-/**
- * Not-equal operator.
- */
+    /**
+     * Not-equal operator.
+     */
     const OPERATOR_NEQUAL = 4;
-/**
- * Not-lower-then operator.
- */
+    /**
+     * Not-lower-then operator.
+     */
     const OPERATOR_NLOWER = 5;
-/**
- * Not-greater-then operator.
- */
+    /**
+     * Not-greater-then operator.
+     */
     const OPERATOR_NGREATER = 6;
-/**
- * LIKE operator.
- */
+    /**
+     * LIKE operator.
+     */
     const OPERATOR_LIKE = 7;
-/**
- * Not-LIKE operator.
- */
+    /**
+     * Not-LIKE operator.
+     */
     const OPERATOR_NLIKE = 8;
 
-/**
- * AND sibling.
- */
+    /**
+     * AND sibling.
+     */
     const CRITERIUM_AND = 1;
-/**
- * OR sibling.
- */
+    /**
+     * OR sibling.
+     */
     const CRITERIUM_OR = 2;
 
-/**
- * List of criteriums.
- * 
- * @var array
- */
+    /**
+     * List of criteriums.
+     *
+     * @var array
+     */
     private $criteriums = array();
 
-/**
- * Magic PHP5 method.
- * 
- * <p>
- * Allows object serialisation.
- * </p>
- * 
- * @return array List of properties that should be saved.
- */
+    /**
+     * Magic PHP5 method.
+     *
+     * <p>
+     * Allows object serialisation.
+     * </p>
+     *
+     * @return array List of properties that should be saved.
+     */
     public function __sleep()
     {
         return array('criteriums');
     }
 
-/**
- * Creates clone of object.
- * 
- * <p>
- * This method is empty to override {@link OTS_Base_DAO::__clone() OTS_Base_DAO method}.
- * </p>
- * 
- * @version 0.1.3
- * @since 0.1.3
- */
+    /**
+     * Creates clone of object.
+     *
+     * <p>
+     * This method is empty to override {@link OTS_Base_DAO::__clone() OTS_Base_DAO method}.
+     * </p>
+     *
+     * @version 0.1.3
+     * @since 0.1.3
+     */
     public function __clone()
     {
     }
 
-/**
- * Returns string representation of WHERE clause.
- * 
- * <p>
- * Returned string can be easily inserted into SQL query.
- * </p>
- * 
- * @version 0.1.0
- * @return string String WHERE clause.
- */
+    /**
+     * Returns string representation of WHERE clause.
+     *
+     * <p>
+     * Returned string can be easily inserted into SQL query.
+     * </p>
+     *
+     * @return string String WHERE clause.
+     * @version 0.1.0
+     */
     public function __toString()
     {
         $where = '';
@@ -122,13 +122,10 @@ class OTS_SQLFilter extends OTS_Base_DAO
         $first = true;
 
         // inserts filters into string
-        foreach($this->criteriums as $criterium)
-        {
+        foreach ($this->criteriums as $criterium) {
             // next elements merged
-            if(!$first)
-            {
-                switch($criterium['criterium'])
-                {
+            if (!$first) {
+                switch ($criterium['criterium']) {
                     case self::CRITERIUM_AND:
                         $where .= ' AND ';
                         break;
@@ -137,41 +134,29 @@ class OTS_SQLFilter extends OTS_Base_DAO
                         $where .= ' OR ';
                         break;
                 }
-            }
-            else
-            {
+            } else {
                 $first = false;
             }
 
             // sub-filter
-            if($criterium['left'] instanceof OTS_SQLFilter)
-            {
+            if ($criterium['left'] instanceof OTS_SQLFilter) {
                 $where .= '(' . $criterium['left']->__toString() . ')';
-            }
-            // single criterium
-            else
-            {
+            } // single criterium
+            else {
                 // left side
-                if($criterium['left'] instanceof OTS_SQLField)
-                {
+                if ($criterium['left'] instanceof OTS_SQLField) {
                     $where .= $criterium['left']->__toString();
-                }
-                else
-                {
-                    if( is_int($criterium['left']) || is_float($criterium['left']) )
-                    {
+                } else {
+                    if (is_int($criterium['left']) || is_float($criterium['left'])) {
                         $where .= $criterium['left'];
-                    }
-                    // quotes string
-                    else
-                    {
+                    } // quotes string
+                    else {
                         $where .= $this->db->quote($criterium['left']);
                     }
                 }
 
                 // appends operator
-                switch($criterium['operator'])
-                {
+                switch ($criterium['operator']) {
                     case self::OPERATOR_EQUAL:
                         $where .= ' = ';
                         break;
@@ -206,19 +191,13 @@ class OTS_SQLFilter extends OTS_Base_DAO
                 }
 
                 // right side
-                if($criterium['right'] instanceof OTS_SQLField)
-                {
+                if ($criterium['right'] instanceof OTS_SQLField) {
                     $where .= $criterium['right']->__toString();
-                }
-                else
-                {
-                    if( is_int($criterium['right']) || is_float($criterium['right']) )
-                    {
+                } else {
+                    if (is_int($criterium['right']) || is_float($criterium['right'])) {
                         $where .= $criterium['right'];
-                    }
-                    // quotes string
-                    else
-                    {
+                    } // quotes string
+                    else {
                         $where .= $this->db->quote($criterium['right']);
                     }
                 }
@@ -228,91 +207,83 @@ class OTS_SQLFilter extends OTS_Base_DAO
         return $where;
     }
 
-/**
- * General-purpose filter.
- * 
- * <p>
- * Appends new filter in universal way. You can append either literal value comparsion, fields comparsion or another filter object as sub-condition.
- * </p>
- * 
- * <p>
- * To append subset of another filters use addFilter($OTS_SQLFilterObject).
- * </p>
- * 
- * @param mixed $left Left side ({@link OTS_SQLField OTS_SQLField class} object, {@link OTS_SQLFilter OTS_SQLFilter class} object, or literal value).
- * @param mixed $right Right side ({@link OTS_SQLField OTS_SQLField class} object, or literal value).
- * @param int $operator Operator used for comparsion (equal check by default).
- * @param int $criterium Criterium merging method (AND by default).
- */
+    /**
+     * General-purpose filter.
+     *
+     * <p>
+     * Appends new filter in universal way. You can append either literal value comparsion, fields comparsion or another filter object as sub-condition.
+     * </p>
+     *
+     * <p>
+     * To append subset of another filters use addFilter($OTS_SQLFilterObject).
+     * </p>
+     *
+     * @param mixed $left Left side ({@link OTS_SQLField OTS_SQLField class} object, {@link OTS_SQLFilter OTS_SQLFilter class} object, or literal value).
+     * @param mixed $right Right side ({@link OTS_SQLField OTS_SQLField class} object, or literal value).
+     * @param int $operator Operator used for comparsion (equal check by default).
+     * @param int $criterium Criterium merging method (AND by default).
+     */
     public function addFilter($left, $right = null, $operator = self::OPERATOR_EQUAL, $criterium = self::CRITERIUM_AND)
     {
         $this->criteriums[] = array('left' => $left, 'right' => $right, 'operator' => $operator, 'criterium' => $criterium);
     }
 
-/**
- * Compares field with a literal value.
- * 
- * @param string $field Field name.
- * @param mixed $value Literal value.
- * @param int $operator Operator used for comparsion (equal by default).
- * @param int $criterium Criterium merging method (AND by default).
- * @example examples/filter.php filter.php
- */
+    /**
+     * Compares field with a literal value.
+     *
+     * @param string $field Field name.
+     * @param mixed $value Literal value.
+     * @param int $operator Operator used for comparsion (equal by default).
+     * @param int $criterium Criterium merging method (AND by default).
+     * @example examples/filter.php filter.php
+     */
     public function compareField($field, $value, $operator = self::OPERATOR_EQUAL, $criterium = self::CRITERIUM_AND)
     {
-        $this->addFilter( new OTS_SQLField($field), $value, $operator, $criterium);
+        $this->addFilter(new OTS_SQLField($field), $value, $operator, $criterium);
     }
 
-/**
- * Returns list of all tables used by filter.
- * 
- * <p>
- * This is required for FROM clause.
- * </p>
- * 
- * @return array List of all tables used by this filter.
- */
+    /**
+     * Returns list of all tables used by filter.
+     *
+     * <p>
+     * This is required for FROM clause.
+     * </p>
+     *
+     * @return array List of all tables used by this filter.
+     */
     public function getTables()
     {
         $tables = array();
 
         // finds all unique table names
-        foreach($this->criteriums as $criterium)
-        {
+        foreach ($this->criteriums as $criterium) {
             // subcriterium
-            if($criterium['left'] instanceof OTS_SQLFilter)
-            {
+            if ($criterium['left'] instanceof OTS_SQLFilter) {
                 // puts all it's tables into current list
-                foreach( $criterium['left']->getTables() as $table)
-                {
+                foreach ($criterium['left']->getTables() as $table) {
                     // checks if it's not default table neither already saved table
-                    if(!( empty($table) || in_array($table, $tables) ))
-                    {
+                    if (!(empty($table) || in_array($table, $tables))) {
                         $tables[] = $table;
                     }
                 }
             }
 
             // field name on left side
-            if($criterium['left'] instanceof OTS_SQLField)
-            {
+            if ($criterium['left'] instanceof OTS_SQLField) {
                 $table = $criterium['left']->getTable();
 
                 // checks if it's not default table neither already saved table
-                if(!( empty($table) || in_array($table, $tables) ))
-                {
+                if (!(empty($table) || in_array($table, $tables))) {
                     $tables[] = $table;
                 }
             }
 
             // field name on right side
-            if($criterium['right'] instanceof OTS_SQLField)
-            {
+            if ($criterium['right'] instanceof OTS_SQLField) {
                 $table = $criterium['right']->getTable();
 
                 // checks if it's not default table neither already saved table
-                if(!( empty($table) || in_array($table, $tables) ))
-                {
+                if (!(empty($table) || in_array($table, $tables))) {
                     $tables[] = $table;
                 }
             }
@@ -321,19 +292,18 @@ class OTS_SQLFilter extends OTS_Base_DAO
         return $tables;
     }
 
-/**
- * Magic PHP5 method.
- * 
- * @version 0.1.0
- * @since 0.1.0
- * @param string $name Property name.
- * @return mixed Property value.
- * @throws OutOfBoundsException For non-supported properties.
- */
+    /**
+     * Magic PHP5 method.
+     *
+     * @param string $name Property name.
+     * @return mixed Property value.
+     * @throws OutOfBoundsException For non-supported properties.
+     * @since 0.1.0
+     * @version 0.1.0
+     */
     public function __get($name)
     {
-        switch($name)
-        {
+        switch ($name) {
             case 'tables':
                 return $this->getTables();
 
@@ -344,5 +314,3 @@ class OTS_SQLFilter extends OTS_Base_DAO
 }
 
 /**#@-*/
-
-?>

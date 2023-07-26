@@ -37,271 +37,271 @@
  */
 class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countable, ArrayAccess
 {
-/**
- * Description attribute.
- */
+    /**
+     * Description attribute.
+     */
     const OTBM_ATTR_DESCRIPTION = 1;
-/**
- * External file.
- */
+    /**
+     * External file.
+     */
     const OTBM_ATTR_EXT_FILE = 2;
-/**
- * Tile flags.
- */
+    /**
+     * Tile flags.
+     */
     const OTBM_ATTR_TILE_FLAGS = 3;
-/**
- * Action ID.
- */
+    /**
+     * Action ID.
+     */
     const OTBM_ATTR_ACTION_ID = 4;
-/**
- * Unique ID.
- */
+    /**
+     * Unique ID.
+     */
     const OTBM_ATTR_UNIQUE_ID = 5;
-/**
- * Text.
- */
+    /**
+     * Text.
+     */
     const OTBM_ATTR_TEXT = 6;
-/**
- * Description.
- */
+    /**
+     * Description.
+     */
     const OTBM_ATTR_DESC = 7;
-/**
- * Teleport destination.
- */
+    /**
+     * Teleport destination.
+     */
     const OTBM_ATTR_TELE_DEST = 8;
-/**
- * Item.
- */
+    /**
+     * Item.
+     */
     const OTBM_ATTR_ITEM = 9;
-/**
- * Depot ID.
- */
+    /**
+     * Depot ID.
+     */
     const OTBM_ATTR_DEPOT_ID = 10;
-/**
- * External spawns file.
- */
+    /**
+     * External spawns file.
+     */
     const OTBM_ATTR_EXT_SPAWN_FILE = 11;
-/**
- * Rune changes amount.
- */
+    /**
+     * Rune changes amount.
+     */
     const OTBM_ATTR_RUNE_CHARGES = 12;
-/**
- * External houses file.
- */
+    /**
+     * External houses file.
+     */
     const OTBM_ATTR_EXT_HOUSE_FILE = 13;
-/**
- * ID of doors.
- */
+    /**
+     * ID of doors.
+     */
     const OTBM_ATTR_HOUSEDOORID = 14;
-/**
- * Amount.
- *
- * @version 0.1.6
- * @since 0.1.6
- */
+    /**
+     * Amount.
+     *
+     * @version 0.1.6
+     * @since 0.1.6
+     */
     const OTBM_ATTR_COUNT = 15;
-/**
- * Time interval.
- *
- * @version 0.1.6
- * @since 0.1.6
- */
+    /**
+     * Time interval.
+     *
+     * @version 0.1.6
+     * @since 0.1.6
+     */
     const OTBM_ATTR_DURATION = 16;
-/**
- * Metamorphic stage.
- *
- * @version 0.1.6
- * @since 0.1.6
- */
+    /**
+     * Metamorphic stage.
+     *
+     * @version 0.1.6
+     * @since 0.1.6
+     */
     const OTBM_ATTR_DECAYING_STATE = 17;
-/**
- * Date of being written.
- *
- * @version 0.1.6
- * @since 0.1.6
- */
+    /**
+     * Date of being written.
+     *
+     * @version 0.1.6
+     * @since 0.1.6
+     */
     const OTBM_ATTR_WRITTENDATE = 18;
-/**
- * Sign author.
- *
- * @version 0.1.6
- * @since 0.1.6
- */
+    /**
+     * Sign author.
+     *
+     * @version 0.1.6
+     * @since 0.1.6
+     */
     const OTBM_ATTR_WRITTENBY = 19;
-/**
- * Sleeping player ID.
- *
- * @version 0.1.6
- * @since 0.1.6
- */
+    /**
+     * Sleeping player ID.
+     *
+     * @version 0.1.6
+     * @since 0.1.6
+     */
     const OTBM_ATTR_SLEEPERGUID = 20;
-/**
- * Time of sleep started.
- *
- * @version 0.1.6
- * @since 0.1.6
- */
+    /**
+     * Time of sleep started.
+     *
+     * @version 0.1.6
+     * @since 0.1.6
+     */
     const OTBM_ATTR_SLEEPSTART = 21;
-/**
- * Number of charges.
- *
- * @version 0.1.6
- * @since 0.1.6
- */
+    /**
+     * Number of charges.
+     *
+     * @version 0.1.6
+     * @since 0.1.6
+     */
     const OTBM_ATTR_CHARGES = 22;
 
-/**
- * Root node.
- */
+    /**
+     * Root node.
+     */
     const OTBM_NODE_ROOTV1 = 1;
-/**
- * Map data container.
- */
+    /**
+     * Map data container.
+     */
     const OTBM_NODE_MAP_DATA = 2;
-/**
- * Item definition.
- */
+    /**
+     * Item definition.
+     */
     const OTBM_NODE_ITEM_DEF = 3;
-/**
- * Map tiles fragment.
- */
+    /**
+     * Map tiles fragment.
+     */
     const OTBM_NODE_TILE_AREA = 4;
-/**
- * Single tile.
- */
+    /**
+     * Single tile.
+     */
     const OTBM_NODE_TILE = 5;
-/**
- * Item.
- */
+    /**
+     * Item.
+     */
     const OTBM_NODE_ITEM = 6;
-/**
- * Tile.
- */
+    /**
+     * Tile.
+     */
     const OTBM_NODE_TILE_SQUARE = 7;
-/**
- * Tile reference.
- */
+    /**
+     * Tile reference.
+     */
     const OTBM_NODE_TILE_REF = 8;
-/**
- * Spawns container.
- */
+    /**
+     * Spawns container.
+     */
     const OTBM_NODE_SPAWNS = 9;
-/**
- * Spawn.
- */
+    /**
+     * Spawn.
+     */
     const OTBM_NODE_SPAWN_AREA = 10;
-/**
- * Monster.
- */
+    /**
+     * Monster.
+     */
     const OTBM_NODE_MONSTER = 11;
-/**
- * Towns container.
- */
+    /**
+     * Towns container.
+     */
     const OTBM_NODE_TOWNS = 12;
-/**
- * Town.
- */
+    /**
+     * Town.
+     */
     const OTBM_NODE_TOWN = 13;
-/**
- * Tile of house.
- */
+    /**
+     * Tile of house.
+     */
     const OTBM_NODE_HOUSETILE = 14;
-/**
- * Waypoints list.
- *
- * @version 0.1.6
- * @since 0.1.6
- */
+    /**
+     * Waypoints list.
+     *
+     * @version 0.1.6
+     * @since 0.1.6
+     */
     const OTBM_NODE_WAYPOINTS = 15;
-/**
- * Waypoint.
- *
- * @version 0.1.6
- * @since 0.1.6
- */
+    /**
+     * Waypoint.
+     *
+     * @version 0.1.6
+     * @since 0.1.6
+     */
     const OTBM_NODE_WAYPOINT = 16;
 
-/**
- * Map width.
- *
- * @var int
- */
+    /**
+     * Map width.
+     *
+     * @var int
+     */
     private $width;
 
-/**
- * Map height.
- *
- * @var int
- */
+    /**
+     * Map height.
+     *
+     * @var int
+     */
     private $height;
 
-/**
- * Map description.
- *
- * @var string
- */
+    /**
+     * Map description.
+     *
+     * @var string
+     */
     private $description = '';
 
-/**
- * List of towns.
- *
- * @var array
- */
+    /**
+     * List of towns.
+     *
+     * @var array
+     */
     private $towns = array();
 
-/**
- * Temple positions.
- *
- * @var array
- */
+    /**
+     * Temple positions.
+     *
+     * @var array
+     */
     private $temples = array();
 
-/**
- * Directory path.
- *
- * @var string
- */
+    /**
+     * Directory path.
+     *
+     * @var string
+     */
     private $directory;
 
-/**
- * External houses file.
- *
- * @var OTS_HousesList
- */
+    /**
+     * External houses file.
+     *
+     * @var OTS_HousesList
+     */
     private $housesList;
 
-/**
- * List of map tracks.
- *
- * @var array
- * @version 0.1.6
- * @since 0.1.6
- */
+    /**
+     * List of map tracks.
+     *
+     * @var array
+     * @version 0.1.6
+     * @since 0.1.6
+     */
     protected $waypoints = array();
 
-/**
- * Magic PHP5 method.
- *
- * <p>
- * Allows object unserialisation.
- * </p>
- *
- * @throws E_OTS_FileLoaderError When error occurs during file operation.
- */
+    /**
+     * Magic PHP5 method.
+     *
+     * <p>
+     * Allows object unserialisation.
+     * </p>
+     *
+     * @throws E_OTS_FileLoaderError When error occurs during file operation.
+     */
     public function __wakeup()
     {
         // loads map info from recovered root node
         $this->parse();
     }
 
-/**
- * Loads OTBM file content.
- *
- * @version 0.1.0
- * @param string $file Filename.
- * @throws E_OTS_FileLoaderError When error occurs during file operation.
- * @throws E_OTS_OutOfBuffer When there is read attemp after end of stream.
- */
+    /**
+     * Loads OTBM file content.
+     *
+     * @param string $file Filename.
+     * @throws E_OTS_FileLoaderError When error occurs during file operation.
+     * @throws E_OTS_OutOfBuffer When there is read attemp after end of stream.
+     * @version 0.1.0
+     */
     public function loadFile($file)
     {
         // loads file structure
@@ -314,13 +314,13 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
         $this->parse();
     }
 
-/**
- * Parses loaded file.
- *
- * @version 0.1.0
- * @throws E_OTS_FileLoaderError When error occurs during file operation.
- * @throws E_OTS_OutOfBuffer When there is read attemp after end of stream.
- */
+    /**
+     * Parses loaded file.
+     *
+     * @throws E_OTS_FileLoaderError When error occurs during file operation.
+     * @throws E_OTS_OutOfBuffer When there is read attemp after end of stream.
+     * @version 0.1.0
+     */
     private function parse()
     {
         // root node header
@@ -331,8 +331,7 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
         $minorVersionItems = $this->root->getLong();
 
         // checks version of root node
-        if($version > 2 || $version <= 0)
-        {
+        if ($version > 2 || $version <= 0) {
             throw new E_OTS_OTBMError(E_OTS_OTBMError::LOADMAPERROR_OUTDATEDHEADER);
         }
 
@@ -340,16 +339,13 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
         $node = $this->root->getChild();
 
         // it should be OTBM_NODE_MAP_DATA
-        if( $node->getType() != self::OTBM_NODE_MAP_DATA)
-        {
+        if ($node->getType() != self::OTBM_NODE_MAP_DATA) {
             throw new E_OTS_OTBMError(E_OTS_OTBMError::LOADMAPERROR_UNKNOWNNODETYPE);
         }
 
         // reads map attributes
-        while( $node->isValid() )
-        {
-            switch( $node->getChar() )
-            {
+        while ($node->isValid()) {
+            switch ($node->getChar()) {
                 // description text
                 case self::OTBM_ATTR_DESCRIPTION:
                     $this->description .= $node->getString() . "\n";
@@ -357,7 +353,7 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
 
                 // external houses file
                 case self::OTBM_ATTR_EXT_HOUSE_FILE:
-                    $this->housesList = new OTS_HousesList($this->directory . '/' . $node->getString() );
+                    $this->housesList = new OTS_HousesList($this->directory . '/' . $node->getString());
                     break;
 
                 // external spawns file
@@ -375,10 +371,8 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
         $node = $node->getChild();
 
         // reads map nodes
-        while($node)
-        {
-            switch( $node->getType() )
-            {
+        while ($node) {
+            switch ($node->getType()) {
                 // map definition part
                 case self::OTBM_NODE_TILE_AREA:
                     // reads base X, Y and Z coords
@@ -389,18 +383,16 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
                     $tile = $node->getChild();
 
                     // reads houses tiles
-                    while($tile)
-                    {
+                    while ($tile) {
                         // we dont need other tiles at the moment in POT, feel free to add it's suport on yourself
-                        if( $tile->getType() == self::OTBM_NODE_HOUSETILE)
-                        {
+                        if ($tile->getType() == self::OTBM_NODE_HOUSETILE) {
                             // reads tile coords
                             $offsetX = $tile->getChar();
                             $offsetY = $tile->getChar();
                             $coords = new OTS_MapCoords($baseX + $offsetX, $baseY + $offsetY, $z);
 
                             // reads house by it's ID
-                            $house = $this->housesList->getHouse( $tile->getLong() );
+                            $house = $this->housesList->getHouse($tile->getLong());
                             $house->addTile($coords);
                         }
 
@@ -413,11 +405,9 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
                     $town = $node->getChild();
 
                     // reads all towns
-                    while($town)
-                    {
+                    while ($town) {
                         // checks if it's town node
-                        if( $town->getType() != self::OTBM_NODE_TOWN)
-                        {
+                        if ($town->getType() != self::OTBM_NODE_TOWN) {
                             throw new E_OTS_OTBMError(E_OTS_OTBMError::LOADMAPERROR_UNKNOWNNODETYPE);
                         }
 
@@ -441,11 +431,9 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
                     $list = array();
 
                     // reads all waypoints
-                    while($waypoint)
-                    {
+                    while ($waypoint) {
                         // checks if it's waypoint
-                        if( $town->getType() != self::OTBM_NODE_WAYPOINT)
-                        {
+                        if ($town->getType() != self::OTBM_NODE_WAYPOINT) {
                             throw new E_OTS_OTBMError(E_OTS_OTBMError::LOADMAPERROR_UNKNOWNNODETYPE);
                         }
 
@@ -474,324 +462,309 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
         }
     }
 
-/**
- * Loads map's houses list.
- *
- * @version 0.1.0
- * @since 0.1.0
- * @return OTS_HousesList Houses from external file.
- */
+    /**
+     * Loads map's houses list.
+     *
+     * @return OTS_HousesList Houses from external file.
+     * @since 0.1.0
+     * @version 0.1.0
+     */
     public function getHousesList()
     {
         return $this->housesList;
     }
 
-/**
- * Returns map width.
- *
- * @return int Map width.
- */
+    /**
+     * Returns map width.
+     *
+     * @return int Map width.
+     */
     public function getWidth()
     {
         return $this->width;
     }
 
-/**
- * Returns map height.
- *
- * @return int Map height.
- */
+    /**
+     * Returns map height.
+     *
+     * @return int Map height.
+     */
     public function getHeight()
     {
         return $this->height;
     }
 
-/**
- * Returns map description.
- *
- * @return string Map description.
- */
+    /**
+     * Returns map description.
+     *
+     * @return string Map description.
+     */
     public function getDescription()
     {
         return $this->description;
     }
 
-/**
- * Returns map waypoints list.
- *
- * <p>
- * Each item of returned array is sub-array with list of waypoints.
- * </p>
- *
- * @version 0.1.6
- * @since 0.1.6
- * @return array List of tracks.
- */
+    /**
+     * Returns map waypoints list.
+     *
+     * <p>
+     * Each item of returned array is sub-array with list of waypoints.
+     * </p>
+     *
+     * @return array List of tracks.
+     * @since 0.1.6
+     * @version 0.1.6
+     */
     public function getWaypointsList()
     {
         return $this->waypoints;
     }
 
-/**
- * Checks if given town ID exists on list.
- *
- * @version 0.1.3
- * @since 0.1.3
- * @param int $id ID.
- * @return bool If town is set then true.
- */
+    /**
+     * Checks if given town ID exists on list.
+     *
+     * @param int $id ID.
+     * @return bool If town is set then true.
+     * @version 0.1.3
+     * @since 0.1.3
+     */
     public function hasTownId($id)
     {
         return isset($this->towns[$id]);
     }
 
-/**
- * Returns town's ID.
- *
- * @version 0.1.3
- * @param string $name Town.
- * @return int ID.
- * @throws OutOfBoundsException If not found.
- */
+    /**
+     * Returns town's ID.
+     *
+     * @param string $name Town.
+     * @return int ID.
+     * @throws OutOfBoundsException If not found.
+     * @version 0.1.3
+     */
     public function getTownID($name)
     {
         $id = array_search($name, $this->towns);
 
-        if($id === false)
-        {
+        if ($id === false) {
             throw new OutOfBoundsException();
         }
 
         return $id;
     }
 
-/**
- * Checks if given town name exists on list.
- *
- * @version 0.1.3
- * @since 0.1.3
- * @param string $name Town.
- * @return bool If town is set then true.
- */
+    /**
+     * Checks if given town name exists on list.
+     *
+     * @param string $name Town.
+     * @return bool If town is set then true.
+     * @version 0.1.3
+     * @since 0.1.3
+     */
     public function hasTownName($name)
     {
         return array_search($name, $this->towns) !== false;
     }
 
-/**
- * Returns name of given town's ID.
- *
- * @version 0.1.3
- * @param int $id Town ID.
- * @return string Name.
- * @throws OutOfBoundsException If not found.
- */
+    /**
+     * Returns name of given town's ID.
+     *
+     * @param int $id Town ID.
+     * @return string Name.
+     * @throws OutOfBoundsException If not found.
+     * @version 0.1.3
+     */
     public function getTownName($id)
     {
-        if( isset($this->towns[$id]) )
-        {
+        if (isset($this->towns[$id])) {
             return $this->towns[$id];
         }
 
         throw new OutOfBoundsException();
     }
 
-/**
- * @return array List of towns.
- * @deprecated 0.1.0 Use this class object as array for iterations, counting and methods for field fetching.
- */
+    /**
+     * @return array List of towns.
+     * @deprecated 0.1.0 Use this class object as array for iterations, counting and methods for field fetching.
+     */
     public function getTownsList()
     {
         return $this->towns;
     }
 
-/**
- * Returns town's temple position.
- *
- * @param int $id Town id.
- * @return OTS_MapCoords|bool Point on map (false if not found).
- */
+    /**
+     * Returns town's temple position.
+     *
+     * @param int $id Town id.
+     * @return OTS_MapCoords|bool Point on map (false if not found).
+     */
     public function getTownTemple($id)
     {
-        if( isset($this->temples[$id]) )
-        {
+        if (isset($this->temples[$id])) {
             return $this->temples[$id];
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
 
-/**
- * Returns amount of towns loaded.
- *
- * @version 0.0.8
- * @since 0.0.8
- * @return int Count of towns.
- */
+    /**
+     * Returns amount of towns loaded.
+     *
+     * @return int Count of towns.
+     * @since 0.0.8
+     * @version 0.0.8
+     */
     public function count(): int
     {
         return count($this->towns);
     }
 
-/**
- * @version 0.0.8
- * @since 0.0.8
- * @return string Town name.
- * @deprecated 0.1.0 Use getIterator().
- */
+    /**
+     * @return string Town name.
+     * @since 0.0.8
+     * @version 0.0.8
+     * @deprecated 0.1.0 Use getIterator().
+     */
     public function current()
     {
         return current($this->towns);
     }
 
-/**
- * @version 0.0.8
- * @since 0.0.8
- * @deprecated 0.1.0 Use getIterator().
- */
+    /**
+     * @version 0.0.8
+     * @since 0.0.8
+     * @deprecated 0.1.0 Use getIterator().
+     */
     public function next()
     {
         next($this->towns);
     }
 
-/**
- * @version 0.0.8
- * @since 0.0.8
- * @return int Current position key.
- * @deprecated 0.1.0 Use getIterator().
- */
+    /**
+     * @return int Current position key.
+     * @since 0.0.8
+     * @version 0.0.8
+     * @deprecated 0.1.0 Use getIterator().
+     */
     public function key()
     {
         return key($this->towns);
     }
 
-/**
- * @version 0.0.8
- * @since 0.0.8
- * @return bool If iterator has anything more.
- * @deprecated 0.1.0 Use getIterator().
- */
+    /**
+     * @return bool If iterator has anything more.
+     * @since 0.0.8
+     * @version 0.0.8
+     * @deprecated 0.1.0 Use getIterator().
+     */
     public function valid()
     {
         return key($this->towns) !== null;
     }
 
-/**
- * @version 0.0.8
- * @since 0.0.8
- * @deprecated 0.1.0 Use getIterator().
- */
+    /**
+     * @version 0.0.8
+     * @since 0.0.8
+     * @deprecated 0.1.0 Use getIterator().
+     */
     public function rewind()
     {
         reset($this->towns);
     }
 
-/**
- * Returns iterator handle for loops.
- *
- * @version 0.1.0
- * @since 0.1.0
- * @return ArrayIterator Towns list iterator.
- */
+    /**
+     * Returns iterator handle for loops.
+     *
+     * @return ArrayIterator Towns list iterator.
+     * @since 0.1.0
+     * @version 0.1.0
+     */
     public function getIterator()
     {
         return new ArrayIterator($this->towns);
     }
 
-/**
- * Checks if given element exists.
- *
- * @version 0.1.0
- * @since 0.1.0
- * @param string|int $offset Array key.
- * @return bool True if it's set.
- */
+    /**
+     * Checks if given element exists.
+     *
+     * @param string|int $offset Array key.
+     * @return bool True if it's set.
+     * @version 0.1.0
+     * @since 0.1.0
+     */
     public function offsetExists($offset)
     {
         // integer key
-        if( is_int($offset) )
-        {
+        if (is_int($offset)) {
             return isset($this->towns[$offset]);
-        }
-        // town name
-        else
-        {
+        } // town name
+        else {
             return $this->getTownId($offset) !== false;
         }
     }
 
-/**
- * Returns item from given position.
- *
- * @version 0.1.0
- * @since 0.1.0
- * @param string|int $offset Array key.
- * @return mixed If key is an integer (type-sensitive!) then returns town name. If it's a string then return associated ID found by town name. False if offset is not set.
- */
+    /**
+     * Returns item from given position.
+     *
+     * @param string|int $offset Array key.
+     * @return mixed If key is an integer (type-sensitive!) then returns town name. If it's a string then return associated ID found by town name. False if offset is not set.
+     * @version 0.1.0
+     * @since 0.1.0
+     */
     public function offsetGet($offset)
     {
         // integer key
-        if( is_int($offset) )
-        {
-            if( isset($this->towns[$offset]) )
-            {
+        if (is_int($offset)) {
+            if (isset($this->towns[$offset])) {
                 return $this->towns[$offset];
-            }
-            // keys is not set
-            else
-            {
+            } // keys is not set
+            else {
                 return false;
             }
-        }
-        // town name
-        else
-        {
+        } // town name
+        else {
             return $this->getTownId($offset);
         }
     }
 
-/**
- * This method is implemented for ArrayAccess interface. In fact you can't write/append to towns list. Any call to this method will cause {@link E_OTS_ReadOnly E_OTS_ReadOnly} raise.
- *
- * @version 0.1.0
- * @since 0.1.0
- * @param string|int $offset Array key.
- * @param mixed $value Field value.
- * @throws E_OTS_ReadOnly Always - this class is read-only.
- */
+    /**
+     * This method is implemented for ArrayAccess interface. In fact you can't write/append to towns list. Any call to this method will cause {@link E_OTS_ReadOnly E_OTS_ReadOnly} raise.
+     *
+     * @param string|int $offset Array key.
+     * @param mixed $value Field value.
+     * @throws E_OTS_ReadOnly Always - this class is read-only.
+     * @since 0.1.0
+     * @version 0.1.0
+     */
     public function offsetSet($offset, $value)
     {
         throw new E_OTS_ReadOnly();
     }
 
-/**
- * This method is implemented for ArrayAccess interface. In fact you can't write/append to towns list. Any call to this method will cause {@link E_OTS_ReadOnly E_OTS_ReadOnly} raise.
- *
- * @version 0.1.0
- * @since 0.1.0
- * @param string|int $offset Array key.
- * @throws E_OTS_ReadOnly Always - this class is read-only.
- */
+    /**
+     * This method is implemented for ArrayAccess interface. In fact you can't write/append to towns list. Any call to this method will cause {@link E_OTS_ReadOnly E_OTS_ReadOnly} raise.
+     *
+     * @param string|int $offset Array key.
+     * @throws E_OTS_ReadOnly Always - this class is read-only.
+     * @version 0.1.0
+     * @since 0.1.0
+     */
     public function offsetUnset($offset)
     {
         throw new E_OTS_ReadOnly();
     }
 
-/**
- * Magic PHP5 method.
- *
- * @version 0.1.0
- * @since 0.1.0
- * @param string $name Property name.
- * @return mixed Property value.
- * @throws OutOfBoundsException For non-supported properties.
- */
+    /**
+     * Magic PHP5 method.
+     *
+     * @param string $name Property name.
+     * @return mixed Property value.
+     * @throws OutOfBoundsException For non-supported properties.
+     * @since 0.1.0
+     * @version 0.1.0
+     */
     public function __get($name)
     {
-        switch($name)
-        {
+        switch ($name) {
             case 'housesList':
                 return $this->getHousesList();
 
@@ -812,31 +785,28 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
         }
     }
 
-/**
- * Returns string representation of object.
- *
- * <p>
- * If any display driver is currently loaded then it uses it's method.
- * </p>
- *
- * @version 0.1.3
- * @since 0.1.3
- * @return string String representation of object.
- */
+    /**
+     * Returns string representation of object.
+     *
+     * <p>
+     * If any display driver is currently loaded then it uses it's method.
+     * </p>
+     *
+     * @return string String representation of object.
+     * @since 0.1.3
+     * @version 0.1.3
+     */
     public function __toString()
     {
         $ots = POT::getInstance();
 
         // checks if display driver is loaded
-        if( $ots->isDataDisplayDriverLoaded() )
-        {
+        if ($ots->isDataDisplayDriverLoaded()) {
             return $ots->getDataDisplayDriver()->displayOTBMMap($this);
         }
 
-        return (string) $this->count();
+        return (string)$this->count();
     }
 }
 
 /**#@-*/
-
-?>

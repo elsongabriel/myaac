@@ -69,7 +69,7 @@ $template_path = 'template/';
 require ADMIN . $template_path . 'template.php';
 ?>
 
-<?php if ($config['pace_load'] == true) { ?>
+<?php if ($config['pace_load']) { ?>
     <script src="../admin/bootstrap/pace/pace.js"></script>
     <link href="../admin/bootstrap/pace/themes/white/pace-theme-flash.css" rel="stylesheet"/>
 <?php } ?>
