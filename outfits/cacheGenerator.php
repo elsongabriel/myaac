@@ -1,0 +1,47 @@
+<?php
+
+global $outfitImagesPath;
+
+require_once('./config.php');
+
+$privatePassword = 'ashzxbcvnmb234876asdb12gbsfzkhb8934';
+// how to use: access your server site: http://SITE/outfits/cacheGenerator.php?pvtPassword=PASSWORD
+if (empty($privatePassword))
+    exit('Password cannot be empty. Protect your server!');
+
+if (!isset($_REQUEST['pvtPassword']) || $privatePassword != $_REQUEST['pvtPassword'])
+    exit('Invalid password. Edit URL. Admin can find password in cacheGenerator.php file.');
+
+$dirIterator = new RecursiveDirectoryIterator($outfitImagesPath, FilesystemIterator::UNIX_PATHS);
+$iterator = new RecursiveIteratorIterator($dirIterator, RecursiveIteratorIterator::SELF_FIRST);
+
+$outfits = [];
+$i = 0;
+foreach ($iterator as $file) {
+    if ($file->isFile()) {
+        $filePath = trim($file->getPath(), '.');
+        $filePath = trim($filePath, '/');
+        $outfitIdData = explode('/', $filePath);
+        $outfitId = $outfitIdData[1];
+        $outfits[$outfitId]['files'][] = $filePath . '/' . $file->getFilename();
+        if (isset($outfits[$outfitId]['framesNumber']))
+            $outfits[$outfitId]['framesNumber'] = max($outfits[$outfitId]['framesNumber'], (int)substr($file->getFilename(), 0, 1));
+        else
+            $outfits[$outfitId]['framesNumber'] = (int)substr($file->getFilename(), 0, 1);
+    }
+}
+
+// CODE TO CHECK WHAT VALUES OF 'framesNumber' ARE POSSIBLE FOR YOUR OUTFITS
+$frameNumbers = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+foreach ($outfits as $outfitId => $outfit) {
+    if (!file_put_contents($outfitImagesPath . '/' . $outfitId . '/outfit.data.txt', serialize($outfit))) {
+        exit('PHP cannot write to: "' . $outfitImagesPath . '/' . $outfitId . '/outfit.data.txt", check directory access rights');
+    }
+    $frameNumbers[$outfit['framesNumber']]++;
+}
+
+if (!file_put_contents('./cache.generated.txt', 'cache generated')) {
+    exit('PHP cannot write to: "./cache.generated.txt", check directory access rights');
+}
+echo 'FILE SYSTEM CACHE GENERATED<br />Animation frames count in loaded outfits:';
+var_dump($frameNumbers);

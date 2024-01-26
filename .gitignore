@@ -30,6 +30,10 @@ logs/
 logs
 !logs/index.html
 
+# outfits
+outfits/outfits_anim/**/*.png
+outfits/cache.generated.txt
+
 # all custom templates
 templates/*
 !templates/tibiacom
