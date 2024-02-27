@@ -1,0 +1,22 @@
+{
+  "name": "myaac",
+  "version": "1.0.0",
+  "scripts": {
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@prettier/plugin-php": "^0.22.2",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "prettier": "3.2.5",
+    "stylelint-config-prettier": "^9.0.5"
+  },
+  "lint-staged": {
+    "**/*.{php,css}": "prettier --write \"**/workflow_test/*.{php,css}\" --plugin=@prettier/plugin-php --ignore-unknown"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
+}

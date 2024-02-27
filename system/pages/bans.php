@@ -120,6 +120,7 @@ function getBanReason($reasonId)
 	{
 		case 0:
 			return "Offensive Name";
+
 		case 1:
 			return "Invalid Name Format";
 		case 2:
