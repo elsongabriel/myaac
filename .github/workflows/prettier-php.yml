@@ -40,11 +40,11 @@ jobs:
           node-version: 18
 
       - name: Install Dependencies
-        run: npm install prettier @prettier/plugin-php husky
+        run: npm install prettier @prettier/plugin-php
 
       - name: Run prettier code format
         run: |
-          npx prettier --write **/workflow_test/*.{php,css} --plugin=@prettier/plugin-php --ignore-unknown
+          npx prettier --write **/workflow_test/*.{php,css,js} --plugin=@prettier/plugin-php --ignore-unknown
 
       - name: Run add and commit
         if: ${{ github.ref != 'refs/heads/main' }}
